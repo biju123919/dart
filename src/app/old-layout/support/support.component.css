@@ -1,0 +1,9 @@
+.support {
+    background-color: #ececec;
+    padding: 20px 10px 10px 10px;
+    text-align: center;
+}
+.mailText a {
+    color:#0babf1;
+    text-decoration:underline;
+}

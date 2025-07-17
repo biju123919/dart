@@ -1,0 +1,13 @@
+<mat-form-field style="width: 100%">
+  <mat-select style="background-color: white; padding: 0 !important" [(value)]="selectedItem" placeholder="Select"
+    (selectionChange)="onChange($event.value)" (blur)="onTouched()" (openedChange)="isDropdownOpen = $event">
+    <mat-option *ngFor="let option of options" [value]="option.value" class="boxed-option">
+      {{ option.label }}
+    </mat-option>
+  </mat-select>
+  <svg xmlns="http://www.w3.org/2000/svg" matSuffix class="custom-arrow" [class.open]="isDropdownOpen" width="10"
+    height="10" viewBox="0 0 10 10" fill="currentColor">
+    <path d="M8.83333 2.08328L10 3.24994L5 8.24994L0 3.24994L1.16666 2.08328L5 5.91662L8.83333 2.08328Z"
+      fill="currentColor" />
+  </svg>
+</mat-form-field>

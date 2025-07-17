@@ -1,0 +1,41 @@
+@use 'definitions';
+@use 'fonts';
+@use 'typography';
+@use 'variables';
+
+.mat-divider {
+    border-top: 1px solid var(--line-bkg-color) !important;
+}
+
+.mat-internal-form-field>label {
+    margin: auto !important;
+    color: var(--primary-color);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.mat-mdc-radio-button .mdc-radio__outer-circle {
+    border-width: 1px !important;
+}
+
+.mat-expansion-panel-body {
+    padding: 0 !important;
+    border-top: 1px solid var(--line-bkg-color) !important;
+}
+
+.mat-accordion .mat-expansion-panel:first-of-type {
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+.mat-accordion .mat-expansion-panel:last-of-type {
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.mat-expansion-panel-header {
+    height: 100px !important;
+}

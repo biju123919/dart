@@ -1,0 +1,117 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create S3 bucket for dart webapp 
+Parameters:
+  S3BucketName:
+    Type: String 
+  S3BucketType:
+    Type: String
+  AllowedHeaders:
+    Type: String
+  AllowedMethods:
+    Type: String
+  AllowedOrigins:
+    Type: String
+  ExposedHeaders:
+    Type: String
+  MaxAge:
+    Type: Number
+  
+  BackupPlanTag:
+    Type: String 
+  BudgetPOCTag:
+    Type: String
+  ComplianceTag:
+    Type: String	
+  CostcenterTag:
+    Type: String	
+  EnvironmentTag:
+    Type: String  
+  ExposureTag:
+    Type: String	
+  OSTag:
+    Type: String	
+  PriorityTag:
+    Type: String	
+  ProjectManagerTag:
+    Type: String	
+  ProjectTag:
+    Type: String	
+  RoleTag:
+    Type: String	
+  TechnicalPOCTag:
+    Type: String	 
+
+  BucketAcceleration:
+    Type: String
+  LambdaNotificationTargetARN:
+    Type: String
+  LambdaNotificationCrossAccount:
+    Type: String
+  NotificationFilterS3ObjectPrefix:
+    Type: String
+  NotificationFilterS3ObjectSuffix:
+    Type: String
+  SQSNotificationTargetARN:
+    Type: String
+  EnableAppFlow:
+    Type: String
+Resources:
+
+ rProvisionS3:
+    Type: AWS::ServiceCatalog::CloudFormationProvisionedProduct
+    Properties: 
+      ProductName: 'S3-Standard'
+      ProvisioningArtifactName: '4.0.0'
+      ProvisioningParameters: 
+        - Key : S3BucketName
+          Value: !Ref S3BucketName
+        - Key : S3BucketType
+          Value: !Ref S3BucketType
+        - Key : AllowedHeaders
+          Value: !Ref AllowedHeaders
+        - Key : AllowedMethods
+          Value: !Ref AllowedMethods
+        - Key : AllowedOrigins
+          Value: !Ref AllowedOrigins
+        - Key : ExposedHeaders
+          Value: !Ref ExposedHeaders
+        - Key : MaxAge
+          Value: !Ref MaxAge
+        - Key : BucketAcceleration
+          Value: !Ref BucketAcceleration
+        - Key : LambdaNotificationTargetARN
+          Value: !Ref LambdaNotificationTargetARN
+        - Key : LambdaNotificationCrossAccount
+          Value: !Ref LambdaNotificationCrossAccount
+        - Key : NotificationFilterS3ObjectPrefix
+          Value: !Ref NotificationFilterS3ObjectPrefix
+        - Key : NotificationFilterS3ObjectSuffix
+          Value: !Ref NotificationFilterS3ObjectSuffix
+        - Key : SQSNotificationTargetARN
+          Value: !Ref SQSNotificationTargetARN
+        - Key : BackupPlanTag
+          Value: !Ref BackupPlanTag
+        - Key : EnvironmentTag
+          Value: !Ref EnvironmentTag
+        - Key : BudgetPOCTag
+          Value: !Ref BudgetPOCTag
+        - Key : ComplianceTag  
+          Value: !Ref ComplianceTag    
+        - Key : CostcenterTag  
+          Value: !Ref CostcenterTag 
+        - Key : ExposureTag  
+          Value: !Ref ExposureTag  
+        - Key : OSTag   
+          Value: !Ref OSTag 
+        - Key : PriorityTag  
+          Value: !Ref PriorityTag       
+        - Key : ProjectManagerTag  
+          Value: !Ref ProjectManagerTag 
+        - Key : ProjectTag   
+          Value: !Ref ProjectTag     
+        - Key : RoleTag 
+          Value: !Ref RoleTag 
+        - Key : TechnicalPOCTag  
+          Value: !Ref TechnicalPOCTag  
+        - Key : MAPTag
+          Value: migYLSAVEP874

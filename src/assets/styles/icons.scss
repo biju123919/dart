@@ -1,0 +1,8 @@
+@use 'definitions';
+
+.ci-error-toast,
+.ci-toaster-success,
+.ci-current-additional-info {
+    height: 24px !important;
+    width: 24px !important;
+}

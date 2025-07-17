@@ -1,0 +1,89 @@
+@use 'definitions';
+@use 'fonts';
+@use 'typography';
+@use 'variables';
+
+@mixin text-base {
+  color: var(--primary-color);
+  font-family: var(--font-family);
+  font-style: var(--font-normal);
+}
+
+//font-weight: 300; font size: 42 px; line height normal
+@mixin gen-ai-title {
+  color: var(--font-color);
+  font-family: var(--font-family);
+  font-style: var(--font-normal);
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-normal);
+}
+
+@mixin gen-ai-subTitle {
+  color: var(--font-color);
+  font-family: var(--font-family);
+  font-style: var(--font-normal);
+  font-size: var(--font-size-regular);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-medium);
+}
+
+
+//font-weight: 400; font size: 20 px; line height normal
+@mixin title {
+  color: var(--font-color);
+  font-family: var(--font-family);
+  font-style: var(--font-normal);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-large);
+}
+
+//font-weight: 400; font size: 14px; line height 20px;
+@mixin secondary-title {
+  color: var(--font-color);
+  font-family: var(--font-family);
+  font-style: var(--font-normal);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-small);
+}
+
+// @mixin responsive-font($sizes) {
+//   $breakpoints: (480px, 768px, 1024px);
+//   $i: 0;
+
+//   font-size: nth($sizes, 1);
+
+//   @each $bp in $breakpoints {
+//     $i: $i + 1;
+//     @if length($sizes) > $i {
+//       @media (min-width: $bp) {
+//         font-size: nth($sizes, $i + 1);
+//       }
+//     }
+//   }
+// }
+
+// @mixin responsive-font($sizes) {
+//   $breakpoints: (480px, 768px, 1024px);
+//   $i: 0;
+
+//   font-size: rem(nth($sizes, 1));
+
+//   @each $bp in $breakpoints {
+//     $i: $i + 1;
+//     @if length($sizes) > $i {
+//       @media (min-width: $bp) {
+//         font-size: rem(nth($sizes, $i + 1));
+//       }
+//     }
+//   }
+// }
+
+// @function rem($px) {
+//   @if unit($px) == "px" {
+//     @return ($px / 16) * 1rem;
+//   } @else {
+//     @return $px; // Already in rem or unitless
+//   }
+// }

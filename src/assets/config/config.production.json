@@ -1,0 +1,22 @@
+{
+  "oktaConfig": {
+    "issuer": "$(OktaIssurer)",
+    "logoutUrl": "$(OktaLogoutUrl)",
+    "clientId": "$(OktaClientId)",
+    "redirectUrl": "$(OktaRedirectUrl)",
+    "responseType": "code",
+    "scope": "openid profile email offline_access",
+    "silentRefreshRedirectUri": "$(DartHostUrl)/silent-refresh.html",
+    "silentRenew": true,
+    "useRefreshToken": true,
+    "ignoreNonceAfterRefresh": true,
+    "oktaBaseUrl": "$(OktaBaseUrl)"
+  },
+  "api": {
+    "generativeAIUrl": "$(BaseUrl)"
+  },
+  "configuration": {
+    "environment": "production",
+    "isDebug": true
+  }
+}

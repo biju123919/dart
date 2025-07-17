@@ -1,0 +1,46 @@
+<div class="usecase-container" *ngIf="!isCollapsed">
+  <div class="executePrompt" style="border-right: thick">
+    <div class="box">
+      <span>
+        <img style="margin-left: 2%; margin-top: 2%" src="assets/icons/back.svg" class="back-icon"
+          (click)="backArrowClick()" />
+      </span>
+      <app-execute-prompts></app-execute-prompts>
+    </div>
+  </div>
+  <div class="dataset">
+    <span class="project-name">{{ project }}</span>
+    <span> - </span>
+    <span class="usecase-value">{{ useCase }}</span>
+    <span class="select-usecase">Select Use Case: {{ useCase }}</span>
+
+    <button type="button" class="back-button" (click)="backToDashboard()">
+      Back to Dashboard
+    </button>
+    <div>
+      <app-dataset></app-dataset>
+    </div>
+  </div>
+</div>
+
+<div class="usecase-container" *ngIf="isCollapsed">
+  <div class="executePrompt-collapse box">
+    <span>
+      <img style="margin-left: 2%; margin-top: 4%" src="assets/icons/next-arrow.svg" class="next-icon"
+        (click)="nextArrowClick()" />
+    </span>
+  </div>
+  <div class="dataset-collapse">
+    <span class="project-name">{{ project }}</span>
+    <span> - </span>
+    <span class="usecase-value">{{ useCase }}</span>
+    <span class="select-usecase">Select Use Case</span>
+    <span style="margin-right: 1%">
+      <!-- <app-common-dropdown></app-common-dropdown> -->
+    </span>
+    <button type="button" class="back-button" (click)="backToDashboard()">
+      Back to Dashboard
+    </button>
+  </div>
+</div>
+<app-dataset *ngIf="isCollapsed"></app-dataset>

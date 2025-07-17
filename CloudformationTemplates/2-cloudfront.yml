@@ -1,0 +1,213 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: ---         
+Parameters:
+  ApplicationNameOne:
+    Type: String
+  ApplicationNameTwo:
+    Type: String
+  ApplicationNameThree:
+    Type: String
+
+  AcmCertificateArn:
+    Type: String
+  MinimumSslTlsProtocolVersion:
+    Type: String
+  LambdaEdgeARNOne:
+    Type: String
+  LambdaEdgeOneEventType:
+    Type: String
+  LambdaEdgeARNTwo:
+    Type: String
+  LambdaEdgeTwoEventType:
+    Type: String
+  LambdaEdgeARNThree:
+    Type: String
+  LambdaEdgeThreeEventType:
+    Type: String   
+
+  S3BucketName:
+    Type: String 
+  S3BucketNameTwo:
+    Type: String 
+  S3BucketNameThree:
+    Type: String 
+  Route53HostedZone:
+    Type: String 
+  pOriginRequestPolicyName:
+    Type: String 
+  pOriginRequestPolicyDescription:
+    Type: String 
+  pOriginRequestPolicyCookieBehavior:
+    Type: String 
+  pOriginRequestPolicyCookieNames:
+    Type: String 
+  pOriginRequestPolicyHeaderBehavior:
+    Type: String 
+  pOriginRequestPolicyHeaderNames:
+    Type: String 
+  pOriginRequestPolicyQueryStringBehavior:
+    Type: String 
+  pOriginRequestPolicyQueryStringNames:
+    Type: String 
+  AppOneResponseHeaderPolicyId:
+    Type: String
+  AppTwoResponseHeaderPolicyId:
+    Type: String
+  AppThreeResponseHeaderPolicyId:
+    Type: String
+  pUseWAF:
+    Type: String
+  pEnableCustomErrorResponse:
+    Type: String
+  pErrorCode1:
+    Type: String
+  pResponseCode1:
+    Type: String
+  pResponsePagePath1:
+    Type: String
+  pErrorCode2:
+    Type: String
+  pResponseCode2:
+    Type: String
+  pResponsePagePath2:
+    Type: String
+
+
+  BackupPlanTag:
+    Type: String
+  BudgetPOCTag:
+    Type: String
+  ComplianceTag:
+    Type: String	
+  CostcenterTag:
+    Type: String	
+  EnvironmentTag:
+    Type: String
+  ExposureTag:
+    Type: String	
+  OSTag:
+    Type: String	
+  PriorityTag:
+    Type: String	
+  ProjectManagerTag:
+    Type: String	
+  ProjectTag:
+    Type: String	
+  RoleTag:
+    Type: String	
+  TechnicalPOCTag:
+    Type: String	     
+
+
+Resources:
+
+ rProvisionNexusCloudFront:
+    Type: AWS::ServiceCatalog::CloudFormationProvisionedProduct
+    Properties: 
+      ProductName: 'Cloudfront-Distribution'
+      ProvisioningArtifactName: '4.0.0'
+      ProvisioningParameters: 
+        - Key : ApplicationNameOne
+          Value: !Ref ApplicationNameOne
+        - Key : ApplicationNameTwo
+          Value: !Ref ApplicationNameTwo
+        - Key : ApplicationNameThree
+          Value: !Ref ApplicationNameThree
+        - Key : AcmCertificateArn
+          Value: !Ref AcmCertificateArn
+        - Key : MinimumSslTlsProtocolVersion
+          Value: !Ref MinimumSslTlsProtocolVersion
+        - Key : LambdaEdgeARNOne
+          Value: !Ref LambdaEdgeARNOne
+        - Key : LambdaEdgeOneEventType
+          Value: !Ref LambdaEdgeOneEventType
+        - Key : LambdaEdgeARNTwo
+          Value: !Ref LambdaEdgeARNTwo
+        - Key : LambdaEdgeTwoEventType
+          Value: !Ref LambdaEdgeTwoEventType
+        - Key : LambdaEdgeARNThree
+          Value: !Ref LambdaEdgeARNThree
+        - Key : LambdaEdgeThreeEventType
+          Value: !Ref LambdaEdgeThreeEventType
+        - Key : S3BucketName
+          Value: !Ref S3BucketName
+        - Key : S3BucketNameTwo
+          Value: !Ref S3BucketNameTwo
+        - Key : S3BucketNameThree
+          Value: !Ref S3BucketNameThree
+        - Key : Route53HostedZone
+          Value: !Ref Route53HostedZone
+        - Key : pOriginRequestPolicyName
+          Value: !Ref pOriginRequestPolicyName
+        - Key : pOriginRequestPolicyDescription
+          Value: !Ref pOriginRequestPolicyDescription
+        - Key : pOriginRequestPolicyCookieBehavior
+          Value: !Ref pOriginRequestPolicyCookieBehavior
+        - Key : pOriginRequestPolicyCookieNames
+          Value: !Ref pOriginRequestPolicyCookieNames
+        - Key : pOriginRequestPolicyHeaderBehavior
+          Value: !Ref pOriginRequestPolicyHeaderBehavior
+        - Key : pOriginRequestPolicyHeaderNames
+          Value: !Ref pOriginRequestPolicyHeaderNames
+        - Key : pOriginRequestPolicyQueryStringBehavior
+          Value: !Ref pOriginRequestPolicyQueryStringBehavior
+        - Key : pOriginRequestPolicyQueryStringNames
+          Value: !Ref pOriginRequestPolicyQueryStringNames
+        - Key : AppOneResponseHeaderPolicyId
+          Value: !Ref AppOneResponseHeaderPolicyId
+        - Key : AppTwoResponseHeaderPolicyId
+          Value: !Ref AppTwoResponseHeaderPolicyId
+        - Key : AppThreeResponseHeaderPolicyId
+          Value: !Ref AppThreeResponseHeaderPolicyId
+        - Key : pUseWAF
+          Value: !Ref pUseWAF
+        - Key : pEnableCustomErrorResponse
+          Value: !Ref pEnableCustomErrorResponse
+        - Key : pErrorCode1
+          Value: !Ref pErrorCode1
+        - Key : pResponseCode1
+          Value: !Ref pResponseCode1
+        - Key : pResponsePagePath1
+          Value: !Ref pResponsePagePath1
+        - Key : pErrorCode2
+          Value: !Ref pErrorCode2
+        - Key : pResponseCode2
+          Value: !Ref pResponseCode2
+        - Key : pResponsePagePath2
+          Value: !Ref pResponsePagePath2
+        - Key : BackupPlanTag
+          Value: !Ref BackupPlanTag
+        - Key : BudgetPOCTag
+          Value: !Ref BudgetPOCTag
+        - Key : ComplianceTag  
+          Value: !Ref ComplianceTag    
+        - Key : CostcenterTag  
+          Value: !Ref CostcenterTag 
+        - Key : EnvironmentTag
+          Value: !Ref EnvironmentTag
+        - Key : ExposureTag  
+          Value: !Ref ExposureTag  
+        - Key : OSTag   
+          Value: !Ref OSTag 
+        - Key : PriorityTag  
+          Value: !Ref PriorityTag       
+        - Key : ProjectManagerTag  
+          Value: !Ref ProjectManagerTag 
+        - Key : ProjectTag   
+          Value: !Ref ProjectTag     
+        - Key : RoleTag 
+          Value: !Ref RoleTag 
+        - Key : TechnicalPOCTag  
+          Value: !Ref TechnicalPOCTag  
+        - Key : MAPTag
+          Value: migYLSAVEP874
+Outputs:
+  CloudfrontDomainName:
+    Description: Cloudfront Domain Name
+    Value: !GetAtt rProvisionNexusCloudFront.Outputs.CloudfrontDomainName
+  WebsiteDomainName:
+    Description: Website Domain Name
+    Value: !GetAtt rProvisionNexusCloudFront.Outputs.WebsiteDomainName
+  CloudfrontDistributionId:
+    Description: Cloudfront Domain Name
+    Value: !GetAtt rProvisionNexusCloudFront.Outputs.CloudfrontDistributionId

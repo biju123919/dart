@@ -1,0 +1,34 @@
+<div class="modal-overlay">
+  <div class="prompt-modal">
+    <div class="prompt-header">
+      Choose a Prompt Below to Engineer
+    </div>
+    <div class="line"></div>
+    <div class="custom-accordion">
+      <div *ngFor="let item of pagedData; let i = index" class="accordion-item"
+        [ngClass]="{'expanded-item': selectedIndex === i}">
+        <div class="accordion-header" (click)="togglePanel(i)" [ngClass]="{'expanded-header': selectedIndex === i}">
+          <input type="radio" name="prompt" [value]="item.id" [(ngModel)]="selectedValue"
+            (click)="onRadioButtonClick($event, +item.id)" class="custom-radio" />
+          <div class="text-delete-wrapper" (click)="$event.stopPropagation()">
+            <span class="header-title">{{ item.promptName }}</span>
+            <img src="assets/icons/delete.svg" class="delete-icon" alt="Delete Icon"
+              (click)="openConfirmDeleteModal(i); $event.stopPropagation();" />
+          </div>
+          <mat-icon class="arrow-icon" [class.expanded]="selectedIndex === i">expand_more</mat-icon>
+        </div>
+        <div class="accordion-body" *ngIf="selectedIndex === i">
+          <p>{{ item.promptText }}</p>
+        </div>
+      </div>
+      <!-- <app-common-paginator [totalItems]="prompts.length" [pageSizeOptions]="pageSizeOptions"
+        (pageChange)="onPageChange($event)">
+      </app-common-paginator> -->
+    </div>
+    <div class="line"></div>
+    <div class="modal-actions btn-container">
+      <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+      <button type="button" class="btn btn-primary" [disabled]="!selectedValue"
+        (click)="onSelectPrompt()">Select</button>
+    </div>
+  </div>

@@ -1,0 +1,35 @@
+// Add this in your styles.scss
+$font-weight-light: 300; // Light font weight
+$font-weight-regular: 400; // Regular font weight (default)
+$font-weight-medium: 500; // Medium font weight
+$font-weight-bold: 700; // Bold font weight
+$font-weight-heavy: 900; // Heavy font weigh
+
+$font-normal: normal;
+$font-italic: italic;
+
+$font-size-small: 0.875em;//14px;
+$font-size-regular: 1rem;// 16px;
+$font-size-medium: 18px;
+$font-size-large: 1.25rem;// 20px;
+$font-size-xl: 2.625rem;// 42px;
+$font-size-xxl: 3.125rem; // 50px; 
+
+
+:root {
+    --font-weight-light: #{$font-weight-light};
+    --font-weight-regular: #{$font-weight-regular};
+    --font-weight-medium: #{$font-weight-medium};
+    --font-weight-bold: #{$font-weight-bold};
+    --font-weight-heavy: #{$font-weight-heavy};
+
+    --font-normal: #{$font-normal};
+    --font-italic: #{$font-italic};
+
+    --font-size-small: #{$font-size-small};
+    --font-size-regular: #{$font-size-regular};
+    --font-size-medium: #{$font-size-medium};
+    --font-size-large: #{$font-size-large};
+    --font-size-xl: #{$font-size-xl};
+    --font-size-xxl: #{$font-size-xxl};
+}

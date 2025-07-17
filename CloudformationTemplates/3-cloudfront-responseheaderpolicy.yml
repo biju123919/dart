@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template will provision the response header policy for cloudfront distribution, custom security headers and other response headers will be added      
+Parameters:
+  pContentSecurityPolicy:
+    Type: String
+  pFrameOption:
+    Type: String
+  pReferrerPolicy:
+    Type: String
+  pSTSAccessControlMaxAge:
+    Type: String
+  pSTSIncludeSubDomain:
+    Type: String
+  pSTSPreload:
+    Type: String
+  pXSSModeBlock:
+    Type: String
+  pXSSProtection:
+    Type: String
+  pXSSReportUri:
+    Type: String   
+  pCustomHeader1:
+    Type: String
+  pCustomHeader1Value:
+    Type: String
+  pCustomHeader2:
+    Type: String
+  pCustomHeader2Value:
+    Type: String
+  pCustomHeader3:
+    Type: String
+  pCustomHeader3Value:
+    Type: String  
+
+
+Resources:
+
+ rProvisionCloudfrontResponseHeaderPolicy:
+    Type: AWS::ServiceCatalog::CloudFormationProvisionedProduct
+    Properties: 
+      ProductName: 'Cloudfront-Response-Headers-Policy'
+      ProvisioningArtifactName: '4.1.0'
+      ProvisioningParameters: 
+        - Key : pContentSecurityPolicy
+          Value: !Ref pContentSecurityPolicy
+        - Key : pFrameOption
+          Value: !Ref pFrameOption
+        - Key : pReferrerPolicy
+          Value: !Ref pReferrerPolicy
+        - Key : pSTSAccessControlMaxAge
+          Value: !Ref pSTSAccessControlMaxAge
+        - Key : pSTSIncludeSubDomain
+          Value: !Ref pSTSIncludeSubDomain
+        - Key : pSTSPreload
+          Value: !Ref pSTSPreload
+        - Key : pXSSModeBlock
+          Value: !Ref pXSSModeBlock
+        - Key : pXSSProtection
+          Value: !Ref pXSSProtection
+        - Key : pXSSReportUri
+          Value: !Ref pXSSReportUri
+        - Key : pCustomHeader1
+          Value : !Ref pCustomHeader1
+        - Key : pCustomHeader1Value
+          Value : !Ref pCustomHeader1Value
+        - Key : pCustomHeader2
+          Value : !Ref pCustomHeader2
+        - Key : pCustomHeader2Value
+          Value : !Ref pCustomHeader2Value
+        - Key : pCustomHeader3
+          Value : !Ref pCustomHeader3
+        - Key : pCustomHeader3Value
+          Value : !Ref pCustomHeader3Value
+        
+Outputs:
+  oResponseHeaderPolicyID:
+    Description: The unique identifier for the response headers policy
+    Value: !GetAtt rProvisionCloudfrontResponseHeaderPolicy.Outputs.oResponseHeaderPolicyID

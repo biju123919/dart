@@ -1,0 +1,10 @@
+<div class="form-group">
+  <label>{{ label }}</label>
+  <textarea [formControl]="formControl" class="form-control" rows="4" [placeholder]="label" [ngStyle]="{
+        'background-color': formControl.value?.trim() ? '#F3F3F3' : 'white'
+      }" [ngClass]="{
+        'valid-control': control.valid,
+        'invalid-control': !control.valid
+      }">
+    </textarea>
+</div>

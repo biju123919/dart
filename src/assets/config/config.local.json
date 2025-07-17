@@ -1,0 +1,24 @@
+{
+  "oktaConfig": {
+    "issuer": "https://acrid-test.acr.org/oauth2/default",
+    "logoutUrl": "http://localhost:4200/login",
+    "clientId": "0oa2csplik6I3ciqe0h8",
+    "redirectUrl": "http://localhost:4200/home",
+    "responseType": "code",
+    "scope": "openid profile email offline_access",
+    "silentRefreshRedirectUri": "http://localhost:4200/silent-refresh.html",
+    "silentRenew": true,
+    "useRefreshToken": true,
+    "ignoreNonceAfterRefresh": true,
+    "oktaBaseUrl":"https://acrid-test.acr.org/oauth2/default/v1"
+  },
+  "api": {
+    "generativeAIUrl": "https://vl4chkmd50-vpce-077fb5df633ac0549.execute-api.us-east-1.amazonaws.com/dev"
+  },
+  "configuration": {
+    "environment": "local",
+    "isDebug": true
+  },
+  "boomiConfig": {
+  }
+}

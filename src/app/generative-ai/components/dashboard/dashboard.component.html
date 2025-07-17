@@ -1,0 +1,75 @@
+<div class="background-container">
+  <div class="gen-ai-title" *ngIf="!isAccessDenied">
+    {{ title }}
+  </div>
+  <div class="gen-ai-subTitle" *ngIf="!isAccessDenied">
+    {{ subTitle }}
+  </div>
+  <br />
+  <div *ngIf="isAccessDenied">
+    <!-- <app-access-denied></app-access-denied> -->
+  </div>
+  <div class="center-wrapper">
+    <div #accordion class="accordion accordion-flush accordion-width" id="projectAccordion">
+      <div class="accordion-item" *ngFor="let project of userAccessProjects; let i = index">
+        <h2 class="accordion-header" [id]="'heading-' + project.id">
+
+          <button class="accordion-button custom-accordion-header d-flex justify-content-between align-items-center"
+            type="button" [class.collapsed]="i !== 0" data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapse-' + project.id" [attr.aria-expanded]="i === 0 ? 'true' : 'false'"
+            [attr.aria-controls]="'collapse-' + project.id" (click)="loadUseCases(project.id)">
+            <span class="me-auto">
+              <p class="project-name">{{project.name}}</p>
+              <p class="project-description">{{project.description}}</p>
+            </span>
+            <span class="custom-arrow">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.5 4.5l6 6 6-6" stroke="red" stroke-width="2" fill="none" />
+              </svg>
+            </span>
+          </button>
+        </h2>
+        <div [id]="'collapse-' + project.id" class="accordion-collapse collapse" [class.show]="i === 0"
+          [attr.aria-labelledby]="'heading-' + project.id" data-bs-parent="#projectAccordion">
+          <div class="accordion-body px-0" style="background-color: #667FAC;height:500px;">
+            <ng-container *ngIf="useCasesByProject[project.id]; else loading">
+              <div *ngIf="useCasesByProject[project.id].length > 0; else noUseCases">
+                <ng-container *ngIf="useCasesByProject[project.id]; else loading">
+                  <div *ngIf="useCasesByProject[project.id].length > 0; else noUseCases">
+                    <form>
+                      <ng-container *ngFor="let score of useCasesByProject[project.id]; let j = index">
+                        <div class="form-check">
+                          <input type="radio" class="form-check-input custom-radio"
+                            [id]="'radio-' + project.id + '-' + score.id" [name]="'scoreGroup-' + project.id"
+                            [value]="score.id" [(ngModel)]="selectedUseCaseByProject[project.id]"
+                            [ngModelOptions]="{ standalone: true }" />
+                          <label class="form-check-label" [for]="'radio-' + project.id + '-' + score.id">
+                            {{ score.label }}
+                          </label>
+                        </div>
+                        <hr *ngIf="j < useCasesByProject[project.id].length - 1" class="usecase-divider my-2" />
+                      </ng-container>
+                      <hr class="usecase-divider my-3" />
+                      <div class="text-center" style="padding-bottom: 10px;">
+                        <button type="button" class="btn-custom"
+                          (click)="goToDataset(project.id, getSelectedUseCaseLabel(project.id))"
+                          [disabled]="!selectedUseCaseByProject[project.id]">
+                          View Dataset(s)
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-template #loading>
+              <div>Loading use cases...</div>
+            </ng-template>
+            <ng-template #noUseCases>
+              <div>No use case available.</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

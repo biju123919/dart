@@ -1,0 +1,24 @@
+<div class="paginator-container">
+    <div class="range-info">
+        {{ startItem }} – {{ endItem }} of {{ totalItems }}
+        <mat-icon (click)="onPreviousPage()" [class.disabled]="currentPage === 1">
+            chevron_left
+        </mat-icon>
+        <mat-icon (click)="onNextPage()" [class.disabled]="currentPage === totalPages">
+            chevron_right
+        </mat-icon>
+    </div>
+    <div class="custom-dropdown-container">
+        <span>Items per page</span>
+        <div class="custom-dropdown" (click)="toggleDropdown()" tabindex="0" (blur)="closeDropdown()">
+            <div class="dropdown-selected">
+                {{ pageSize }} <mat-icon class="dropdown-icon">keyboard_arrow_down</mat-icon>
+            </div>
+            <ul class="dropdown-options" *ngIf="dropdownOpen">
+                <li *ngFor="let size of pageSizeOptions" (click)="selectPageSize(size)">
+                    {{ size }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

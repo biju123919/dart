@@ -1,0 +1,16 @@
+<div class="toast-container-lg position-fixed top-0 start-50 translate-middle-x p-3 toast-margin z-3">
+    <div *ngFor="let toast of toasts" class="toast-custom d-flex align-items-center"
+        [ngClass]="getToastClass(toast.type)">
+        <div class="toast-icon d-flex align-items-center justify-content-center" [ngClass]="'icon-' + toast.type">
+            <icon [icon]="getIconForToast(toast.type)"></icon>
+        </div>
+
+        <div class="toast-body">
+            {{ toast.message }}
+        </div>
+
+        <div class="toast-close ms-3" (click)="removeToast(toast)">
+            <icon [icon]="svgIcon.ToasterClose"></icon>
+        </div>
+    </div>
+</div>

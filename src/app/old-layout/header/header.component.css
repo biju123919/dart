@@ -1,0 +1,161 @@
+/* .header-navbar { 
+    background: #002038; 
+    border-radius: 0; 
+    margin-bottom: 0; 
+    padding: 0; 
+    border: none; 
+}
+
+
+
+.header-title { 
+
+    color: #fff;
+    float: left;
+    margin: 19px 0 0 0;
+    padding-left: 20px;
+
+
+}
+
+@media only screen and (max-width: 768px) { 
+    .header-brand { 
+        padding: 10px 7px; 
+    }
+
+    .header-title {
+        font-size: 14px; 
+    }
+
+    .header-logo { 
+        height: 30px; 
+        width: 195px; 
+        margin-right: 0; 
+        margin-bottom: 3px; 
+    }
+}
+
+
+
+
+
+.header-title { 
+    color: #ffffff; 
+    font-size: 25px; 
+    border-left: 1px solid rgba(255, 255, 255, 0.30); 
+    padding-left: 20px; 
+}
+
+.header-actions{
+    align-items: end !important;
+    width:45% !important;
+    text-align: right;
+    margin-top: 1%;
+}
+
+.userEmail{
+    width:20%;
+    align-items: end;
+}
+
+
+@media only screen and (max-width: 768px) { 
+    .header-brand { 
+        padding: 10px 7px; 
+    }
+
+    .header-title {
+        font-size: 14px; 
+    }
+
+    .header-logo { 
+        height: 30px; 
+        width: 195px; 
+        margin-right: 0; 
+        margin-bottom: 3px; 
+    }
+}
+
+.overlay-container {
+    position: absolute; 
+    top: 100%;
+    left: 0; 
+    right: 0;
+    
+    color: #fff;
+    padding: 10px; 
+    z-index: 1000; 
+   
+  }
+
+  .logout-button {
+    border: none;
+    background: none;
+    color: black;
+    padding: 10px; 
+    cursor: pointer;
+    font-size: 16px; 
+    text-align: left; 
+    float: right;
+  }
+  
+  .logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
+  }
+
+
+  .user-info-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+}
+
+.user-email {
+  margin-right: 4px;
+}
+
+.dropdown-icon {
+  font-size: 20px;
+}
+
+.logout-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 1000;
+  white-space: nowrap;
+  margin-top: 1px;
+  font-size: 15px;
+  font-weight: normal;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+
+    display: flex;
+  justify-content: flex-start;
+  align-items: center;    
+  padding: 8px;   
+  width:100%;
+}
+
+.logout-button {
+  background: transparent;
+  border: none;
+ font-size: 15px;
+  font-weight: normal;
+  color:#002038;
+}
+
+.mat-icon{
+    padding-top:8px;
+} */
+ 

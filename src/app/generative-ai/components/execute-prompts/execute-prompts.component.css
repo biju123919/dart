@@ -1,0 +1,125 @@
+.execute-prmopt-container {
+  display: flex;
+  flex-direction: column;
+}
+
+span {
+  color: var(--Gray---gray-1000, #363636);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.line {
+  background: var(--Gray---gray-400, #C9C9C9);
+  width: 100%;
+  height: 1px;
+  flex-shrink: 0;
+  margin-top: 3%;
+  margin-bottom: 3%;
+}
+
+.prompt-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.prompt-container h3 {
+  margin: 0;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.button-container button {
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+
+.refresh-icon {
+  display: flex;
+  width: 14px;
+  height: 14px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+  padding-top: 3%;
+}
+
+.save-button {
+  color: var(--Gray---gray-1000, #363636);
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.load-button {
+  color: var(--Gray---gray-1000, #363636);
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.submit-btn {
+  display: flex;
+  height: 36px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  background-color: #ccc;
+
+  padding: 10px 20px;
+  border: none;
+  cursor: not-allowed;
+  transition: background-color 0.3s;
+
+  border-radius: 4px;
+  background: var(--Gray---gray-100, #F3F3F3);
+}
+
+.submit-btn:not(:disabled) {
+  display: flex;
+  height: 36px;
+  padding: 10px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border-radius: 4px;
+  background: var(--Blue---blue-800, #4E86FD);
+
+  color: #FFF;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.execute-btn-container {
+  text-align: center;
+  padding-bottom: 2%;
+}
+
+.execute-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,116 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: fixed;
+    top: 7vh;
+    margin: 0;
+    width: 30%;
+    background-color: #fff;
+}
+
+.title {
+    color: #000;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.content {
+    color: var(--Gray---gray-900, #444);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.div {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    outline: 0;
+    background-color: #fff;
+    border-width: 0 0 1px;
+    border-bottom: 1px solid var(--Gray---gray-400, #C9C9C9);
+    width: 100%;
+}
+
+input:focus {
+    outline: 0;
+    border-bottom: 1px solid var(--Gray---gray-400, #C9C9C9);
+}
+
+.btn-close {
+    border-radius: 4px;
+    border: 1px solid var(--Blue---blue-900, #2268FD);
+    background: var(--gray-white-100-m, #FFF);
+    color: var(--Gray---gray-1000, #363636);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.btn-save {
+    border-radius: 4px;
+    background: var(--Blue---blue-800, #4e86fd);
+    color: #fff;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    border: 0;
+    height: 16px;
+    display: flex;
+    height: 36px;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.button-container button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dialog-container {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.icon {
+    background-image: url('/assets/icons/decline-error.svg');
+    background-repeat: no-repeat;
+    background-position: right;
+}

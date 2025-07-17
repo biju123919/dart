@@ -1,0 +1,15 @@
+// Add this in your styles.scss
+// $line-height-small: 14px;
+// $line-height-medium: 16px;
+// $line-height-large: 18px;
+$line-height-xsmall: 16px;
+$line-height-small: 20px; //1.43;// 20px;
+$line-height-normal: normal; // 1.2;// normal;
+$line-height-medium: 24px;
+
+:root {
+    --line-height-xsmall: #{$line-height-xsmall};
+    --line-height-small: #{$line-height-small};
+    --line-height-normal: #{$line-height-normal};
+    --line-height-medium: #{$line-height-medium};
+}

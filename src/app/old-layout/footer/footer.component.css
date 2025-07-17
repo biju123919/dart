@@ -1,0 +1,26 @@
+footer {
+    text-align: center;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 5px;
+    bottom:0;
+    width: 100%;
+}
+
+footer p{
+    text-align: center;
+    width: 100%;
+    padding: 5px 0;
+    margin-bottom: 0;
+    color: #8e8e8e;
+}
+
+footer p a{
+    color: #8e8e8e;
+    text-decoration: none;
+}
+
+footer p span{
+    font-size: x-small;
+    vertical-align: middle;
+}

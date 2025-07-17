@@ -1,0 +1,579 @@
+// Add this in your styles.scss
+
+@use 'definitions';
+@use 'fonts';
+@use 'typography';
+@use 'variables';
+@use 'mixins' as *;
+@use "sass:math";
+//@import 'mixins';
+
+// $primary-color: #363636;
+// $font-family: Roboto;
+// $font-weight-light: 300;
+// $font-weight-normal: 400;
+// $font-weight-medium: 500;
+// $font-weight-bold: 700;
+// $line-height:20px;
+// $font-size-small: 14px;
+// $font-size-medium: 18px;
+// $font-size-large: 20px;
+// $line-height-small: 14px;
+// $line-height-medium: 16px;
+// $line-height-large: 18px;
+// $line-height-xlarge: 20px;
+// $font-normal: normal;
+
+.paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1%;
+  color: var(--primary-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size-small);
+  font-style: var(--font-normal);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-small);
+  background-color: var(--container-bkg-color);
+}
+
+.range-info,
+.controls,
+.page-size-selector {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.range-info .mat-icon {
+  color: var(--pagination-arrow-color);
+  padding: 0 10px;
+  cursor: pointer;
+
+  &.disabled {
+    color: var(--pagination-arrow-disabled-color);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+
+.page-size-selector select {
+  appearance: none;
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.custom-dropdown-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: 50px;
+}
+
+.dropdown-selected {
+  display: flex;
+  align-items: center;
+  padding: 4px 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown-selected .dropdown-icon {
+  font-size: var(--font-size-large);
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.dropdown-options {
+  list-style: none;
+  margin: 0;
+  padding: 2px 0;
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  /* border-radius: 4px; */
+  width: 100%;
+  box-shadow: none;
+  z-index: 1000;
+}
+
+.dropdown-options li {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.dropdown-options li:hover {
+  background-color: #EAF1FF;
+}
+
+.dropdown-selected .mat-icon {
+  padding: 0 2px;
+}
+
+.background-container {
+  height: 100vh;
+  background: url('/assets/images/dart-llm-bkg.svg') center/cover no-repeat;
+}
+
+.gen-ai-title {
+  @include gen-ai-title;
+  text-align: center;
+  padding-top: 1%;
+}
+
+.gen-ai-subTitle {
+  @include gen-ai-subTitle;
+  text-align: center;
+}
+
+.info-container {
+  width: 45%;
+  margin: auto;
+  background-color: #fff;
+  background: var(--Gray---gray-100, #F3F3F3);
+  box-shadow: 0px 0px 6px 0px rgba(15, 38, 89, 0.20);
+}
+
+.projects-info-container {
+  border-bottom: 1px solid var(--gray-gray-500-m, #b7b7b7);
+  background: #fff;
+}
+
+.title {
+  @include text-base;
+  font-size: 20px;
+  font-weight: var(--font-weight-regular);
+  ;
+  line-height: var(--line-height-normal);
+}
+
+.subtitle {
+  @include text-base;
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  line-height: 20px;
+}
+
+.usecase-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border: 0;
+}
+
+.view-dataset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 10px 16px;
+  height: 36px;
+
+  border: none;
+  border-radius: 4px;
+
+  background: var(--Blue---blue-800, #4e86fd);
+  color: #fff;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size-small);
+  font-style: var(--font-normal);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-xsmall);
+
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.disabled-grey {
+  background-color: #f3f3f3;
+  color: #9f9f9f;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.usecase-title {
+  @include title;
+  line-height: var(--line-height-normal);
+}
+
+.usecase-secondary-title {
+  @include secondary-title;
+}
+
+.usecase-header-left {
+  width: 70%;
+}
+
+.usecase-accordion-body {
+  color: var(--primary-color);
+  font-family: var(--font-family);
+  font-size: var(--font-size-small);
+  font-style: var(--font-normal);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-small);
+}
+
+.radio-group label {
+  @include secondary-title;
+}
+
+.usecase-arrow-click {
+  color: #757575;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.usecase-arrow-click:hover {
+  color: #4E86FD;
+}
+
+.form-check-input:checked {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.custom-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid green;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: relative;
+  background-color: white;
+  cursor: pointer;
+}
+
+.custom-radio:checked::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: #4E86FD;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.usecase-radio {
+  padding-left: 24px;
+}
+
+.radio-scroll-container {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+.radio-scroll-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.radio-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.radio-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.6);
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.radio-scroll-container::-webkit-scrollbar-button {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+.usecase-accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 16px 24px 24px 24px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: #ccc;
+}
+
+.usecase-accordion-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.header-left {
+  width: 60%;
+}
+
+.radio-divider {
+  border: none;
+  border-bottom: 1px solid var(--Gray---gray-400, #C9C9C9);
+  background: var(--gray-white-100-m, #FFF);
+}
+
+
+// Access denied card
+.access-denied-card {
+  max-width: 25%;
+  margin: 30px auto;
+  padding: 30px;
+  border: 2px solid #ff0000;
+  border-radius: 8px;
+  background-color: #fff1f1;
+  text-align: center;
+  color: #363636;
+}
+
+.access-denied {
+  color: #ff0000 !important;
+}
+
+.accordion-header {
+  color: #fff;
+}
+
+.custom-radio {
+  accent-color: #007bff;
+  background-color: white;
+  border: 2px solid white;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.accordion-button::after {
+  display: none;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: red !important;
+}
+
+.form-check {
+  padding-left: 6%;
+  color: var(--gray-white-100-m, #FFF);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.form-check-input {
+  vertical-align: middle;
+  margin-top: 0;
+}
+
+.accordion-item {
+  border: none !important;
+}
+
+.accordion-header {
+  border-bottom: 1px solid #2E456A;
+  background: #3A5787;
+}
+
+.accordion-button {
+  background-color: #3A5787 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.accordion-button:hover {
+  background-color: #3A5787 !important;
+  color: white !important;
+}
+
+.accordion-button:focus,
+.accordion-button:active {
+  background-color: #3A5787 !important;
+  color: white !important;
+}
+
+.accordion-button.collapsed {
+  background-color: #3A5787 !important;
+  color: white !important;
+}
+
+.accordion-body {
+  width: 100% !important;
+  padding: 10px 0 !important;
+  max-height: 150px !important;
+}
+
+.accordion-width {
+  width: 47%;
+}
+
+.center-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.custom-width {
+  width: 47%;
+}
+
+.accordion-header {
+  padding: 0 !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+  outline: none !important;
+  background-color: transparent !important;
+}
+
+.accordion-button:hover {
+  background-color: transparent !important;
+}
+
+.usecase-divider {
+  border-bottom: 1px solid #2E456A;
+  background: #3A5787;
+  border: none;
+  height: 1px;
+  margin: 0;
+  width: 100%;
+}
+
+.project-name {
+  color: var(--Blue---blue-100, #EAF3FF);
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.project-description {
+  color: var(--gray-white-100-m, #FFF);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+$base-font-size: 16;
+/*Note These dynamic classes only Take Integer Values,
+If Decimal values are used like 343.163px use inline style*/
+
+// Generate height classes from 1px to 500px
+@for $i from 1 through 500 {
+  .h-#{$i} {
+    height: #{$i}px;
+  }
+
+  .mh-#{$i} {
+    max-height: #{$i}px;
+  }
+}
+
+// Generate width classes from 1px to 500px
+@for $i from 1 through 500 {
+  .w-#{$i} {
+    width: #{$i}px;
+  }
+
+  .mw-#{$i} {
+    max-width: #{$i}px;
+  }
+}
+
+// Generate padding classes from 1px to 500px
+@for $i from 1 through 500 {
+  .pdl-#{$i} {
+    padding-left: #{$i}px;
+  }
+
+  .pdr-#{$i} {
+    padding-right: #{$i}px;
+  }
+
+  .pdt-#{$i} {
+    padding-top: #{$i}px;
+  }
+
+  .pdb-#{$i} {
+    padding-bottom: #{$i}px;
+  }
+
+  .pd-#{$i} {
+    padding: #{$i}px;
+  }
+}
+
+// Generate margin classes for four sides only (1px to 500px)
+@for $i from 1 through 500 {
+  .myl-#{$i} {
+    margin-left: #{$i}px;
+  }
+
+  .myr-#{$i} {
+    margin-right: #{$i}px;
+  }
+
+  .myt-#{$i} {
+    margin-top: #{$i}px;
+  }
+
+  .myb-#{$i} {
+    margin-bottom: #{$i}px;
+  }
+}
+
+// Generate Font Weight/Size classes dynamically from 1 to 1000
+@for $i from 1 through 1000 {
+  .fw-#{$i} {
+    font-weight: #{$i};
+  }
+
+  .fs-#{$i} {
+    // Using math.div() instead of deprecated / operator
+    font-size: math.div($i, $base-font-size) * 1rem;
+  }
+}
+
+// Generate Line Height classes dynamically from 1 to 50
+@for $i from 1 through 50 {
+  .lh-#{$i} {
+    line-height: #{$i}px;
+  }
+}

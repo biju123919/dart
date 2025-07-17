@@ -1,0 +1,28 @@
+<div>
+    <div class="d-flex align-items-center header-bg header-border-bottom col-12">
+        <button class="burger-btn ps-3 col-xl-1 col-lg-1" (click)="toggleBurger()">&#9776;</button>
+        <div class="header-brand col-xl-8 col-lg-8">
+            <img src="assets/images/ACRDart_NEW_LOGO.png" alt="Dart logo" class="header-logo lazyload">
+            <span class="custom-border-left"></span>
+            <span class="title">{{ title }}</span>
+        </div>
+        <div class="d-flex col-xl-3 col-lg-3" *ngIf="!accessToken">
+            <div class="pdr-10">
+                <div class="fs-14 login-signup-button">Signup</div>
+            </div>
+            <div>
+                <div class="fs-14 login-signup-button login-btn" (click)="login()">LOG IN with ACR ID</div>
+            </div>
+        </div>
+        <div *ngIf="accessToken" class="user-name">
+            {{ userName }}
+        </div>
+    </div>
+</div>
+
+<div class="side-menu" *ngIf="isSidebarOpen">
+    <div></div>
+    <div *ngFor="let item of sideMenus" (click)="onMenuClick(item)" class="side-menu-item">
+        {{item}}
+    </div>
+</div>

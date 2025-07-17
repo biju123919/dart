@@ -1,0 +1,17 @@
+[
+    {"ParameterKey":"pContentSecurityPolicy", "ParameterValue":"$(CSPHeader)"},
+    {"ParameterKey":"pFrameOption", "ParameterValue":"N/A"},
+    {"ParameterKey":"pReferrerPolicy", "ParameterValue":"same-origin"},
+    {"ParameterKey":"pSTSAccessControlMaxAge", "ParameterValue":"63072000"},
+    {"ParameterKey":"pSTSIncludeSubDomain", "ParameterValue":"true"},
+    {"ParameterKey":"pSTSPreload", "ParameterValue":"true"},
+    {"ParameterKey":"pXSSModeBlock", "ParameterValue":"false"},
+    {"ParameterKey":"pXSSProtection", "ParameterValue":"false"},
+    {"ParameterKey":"pXSSReportUri", "ParameterValue":""},
+    {"ParameterKey":"pCustomHeader1", "ParameterValue":"Cache-Control"},
+    {"ParameterKey":"pCustomHeader1Value", "ParameterValue":"no-cache, no-store"},
+    {"ParameterKey":"pCustomHeader2", "ParameterValue":"Expires"},
+    {"ParameterKey":"pCustomHeader2Value", "ParameterValue":"0"},
+    {"ParameterKey":"pCustomHeader3", "ParameterValue":"Pragma"},
+    {"ParameterKey":"pCustomHeader3Value", "ParameterValue":"no-cache"}
+  ]

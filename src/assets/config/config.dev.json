@@ -1,0 +1,15 @@
+{
+  "oktaConfig": {
+    "issuer": "$(OktaIssurer)",
+    "logoutUrl": "$(OktaLogoutUrl)",
+    "clientId": "$(OktaClientId)",
+    "redirectUrl": "$(OktaRedirectUrl)"
+  },
+  "api": {
+    "generativeAIUrl": "https://vl4chkmd50-vpce-077fb5df633ac0549.execute-api.us-east-1.amazonaws.com/dev"
+  },
+  "configuration": {
+    "environment": "development",
+    "isDebug": false
+  }
+}

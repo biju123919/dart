@@ -1,0 +1,10 @@
+<div class="slider-container" style="padding-top: 15px">
+  <mat-slider class="slider" color="warn" min="0" max="100" discrete="true">
+    <input matSliderStartThumb [(ngModel)]="valueStart" (ngModelChange)="onValueChange()" />
+    <input matSliderEndThumb [(ngModel)]="valueEnd" (ngModelChange)="onValueChange()" />
+  </mat-slider>
+  <div class="slider-labels">
+    <span class="slider-label min-label">0</span>
+    <span class="slider-label max-label">100</span>
+  </div>
+</div>
