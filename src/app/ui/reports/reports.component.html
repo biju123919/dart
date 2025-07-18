@@ -1,18 +1,29 @@
-<div class="reports-container">
-  <div class="reports-card">
-    <div class="reports-header-row" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
-      <div class="reports-description">
-        The Reports tab provides a collection of pre-defined, auto-generated insights based on project and/or site-specific data. These reports offer a clear, visual representation of your data, making it easier to analyze trends, track progress, and make informed decisions.
-      </div>
-      <div class="select-report">
-        <label for="reportType">Select Report</label>
-        <select id="reportType" disabled>
+<div class="d-flex flex-column w-100 h-100 px-3 pb-3" style="background: #1D2D45;">
+  <div class="d-flex py-2 my-1 gap-1 align-items-center text-white">
+    <img class="w-10" src="assets/icons/left-arrow-blue.svg" style="cursor: pointer;" />
+    <div class="fw-400 ms-1 fs-14 " style="color: #AFCFF9;">Home</div>
+    <img class="w-7" src="assets/icons/chevron-right-blue.svg" />
+    <div class="fw-400 fs-14">Reports</div>
+  </div>
+  <div class="d-flex flex-column mx-auto p-4 pt-3"
+    style="background: #2E456A;border: 1px solid #7788B4;border-radius: 6px;min-height: 80vh;">
+    <div class="d-flex justify-content-between align-items-start mb-4">
+      <p class="mb-1 me-4 fw-400 fs-14" style="color: #EAF3FF;">
+        The Reports tab provides a collection of pre-defined, auto-generated insights based on project and/or
+        site-specific data. These reports offer a clear, visual representation of your data, making it easier to analyze
+        trends, track progress, and make informed decisions.
+      </p>
+      <div class="d-flex flex-column text-white gap-1" style="min-width: 220px;">
+        <label class="fs-14" for="reportType">Select Report</label>
+        <select class="border-0 fs-14 text-white" id="reportType"
+          style="background-color: #2E456A; border-bottom: 1px solid #7788B4 !important; cursor: pointer;">
           <option>Select</option>
         </select>
       </div>
     </div>
-    <div class="tableau-container">
-      <span class="tableau-placeholder">TABLEAU REPORT CONTAINER</span>
+    <div class="d-flex align-items-center justify-content-center flex-grow-1 mt-2"
+      style="border-radius: 8px; border: 1px solid #7788B4; background-color: #2E456A;"> 
+      <span class="text-white" style="font-size: 2rem; opacity: 0.8;">TABLEAU REPORT CONTAINER</span>
     </div>
   </div>
-</div> 
+</div>
