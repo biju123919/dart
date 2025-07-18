@@ -132,7 +132,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   menuItems: MenuItem[] = [
-    { label: 'Welcome', route: '/home' },
+    { label: 'Welcome', route: '/' },
     { label: 'Reports', route: '/reports' },
     { label: 'Settings', route: '/settings'}
   ];
