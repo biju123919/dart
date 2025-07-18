@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -6,4 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.css',
 })
-export class ReportsComponent {} 
+export class ReportsComponent {
+  private router = inject(Router);
+
+  handleNavigation() {
+    this.router.navigate(['/home'])
+  }
+} 
