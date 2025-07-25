@@ -29,12 +29,14 @@ import { UiRoutingModule } from './ui-routing-module';
 import { LandingDashboardComponent } from './landing-dashboard/landing-dashboard.component';
 import { LayoutModule } from '../@core/@layout/layout.module';
 import { OldLayoutModule } from '../old-layout/old-layout.module';
+import { ProjectsComponent } from './projects/projects.component';
 
 
 @NgModule({
   declarations: [
     UiComponent,
     LandingDashboardComponent,
+    ProjectsComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { WelcomeComponent } from '../old-layout/welcome/welcome.component';
 import { ReportsComponent } from './reports/reports.component';
 import { oktaSsoGuard } from '../@core/guard/okta-sso.guard';
 import { LandingDashboardComponent } from './landing-dashboard/landing-dashboard.component';
+import {ProjectsComponent } from './projects/projects.component';
 
 const routes: Routes = [
   { path: '', component: LandingDashboardComponent,
@@ -30,6 +31,7 @@ const routes: Routes = [
   },
   { path: 'usecase/:project/:useCase', component: UseCaseComponent },
   { path: 'reports', component: ReportsComponent,   data:{title : 'Reports' } },
+  { path: 'projects', component: ProjectsComponent,   data:{title : 'Data analysis & research toolkit' } },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
