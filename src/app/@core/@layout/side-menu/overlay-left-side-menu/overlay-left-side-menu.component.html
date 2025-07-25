@@ -1,0 +1,27 @@
+<div class="side-menu-wrapper" [class.open]="showSideMenu" >
+    <div class="side-menu col-xl-2 col-lg-3 col-md-3" (click)="closeSideMenu()">
+        <div class="h-80 header-border-bottom d-flex pdr-20 align-items-center cursor-pointer"
+            >
+            <div class="pdl-20" *ngIf="showUserName">
+                {{ loggedInUserName() }}
+            </div>
+            <icon [icon]="svgIcon.LeftArrow" class="ms-auto"></icon>
+        </div>
+
+        <div *ngFor="let action of visibleMenuActions"
+            class="pdr-20 pdl-20 pdt-15 pdb-15 cursor-pointer fs-15 fw-400 lh-20 side-menu-items"
+            (click)="menuAction(action.key)">
+            {{action?.label}}
+        </div>
+        <div *ngIf="showUserName && !loggedInUserName()" class="dart-border-top">
+            <div class="pdr-20 pdl-20 pdt-15 pdb-15 cursor-pointer">Signup</div>
+            <div class="pdr-20 pdl-20 pdt-15 pdb-15 cursor-pointer" (click)="login()">LOG IN with ACR ID</div>
+        </div>
+        <div *ngIf="showUserName && loggedInUserName()" class="dart-border-top">
+            <div *ngFor="let action of visibleProfileActions" class="pdr-20 pdl-20 pdt-15 pdb-15 cursor-pointer"
+            (click)="profileAction(action.key)">
+            {{action?.label}}
+            </div>
+        </div>
+    </div>
+</div>

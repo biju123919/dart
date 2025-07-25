@@ -1,0 +1,54 @@
+<div class="container pdt-24">
+  <div class="row align-items-center">
+    <div class="col-lg-8 col-md-12 mb-4 mb-lg-0 pdr-25">
+      <div>
+        <p class="fs-48 fw-500 lh-base text-white">
+          Explore Data <span class="fs-24 fw-400">with the</span>
+          ACR<span class="dart-clr fw-500">dart</span> Portal
+        </p>
+        <p class="text-white fs-22 fw-400 lh-base">
+          Unlock powerful insights through intuitive browsing and querying.
+          Access research, clinical studies, and quality improvement data based on permission levels.
+        </p>
+      </div>
+
+      <div class="input-group search-field pd-3">
+        <input type="text" class="form-control border-0 bg-transparent fs-6"
+          placeholder="Enter search criteria...">
+        <span class="input-group-text bg-transparent border-0">
+          <icon [icon]="svgIcon.Search"></icon>
+        </span>
+      </div>
+
+      <div class="d-flex align-items-center base-txt-clr myt-10 myb-10" *ngIf="isLoggedinUser()">
+        <span class="pdr-10 fs-14 fw-400 lh-20">
+          <p class="mb-0">My Programs</p>
+        </span>
+        <span class="form-check form-switch m-0">
+          <input class="form-check-input custom-switch" type="checkbox" id="flexSwitchCheckDefault">
+        </span>
+        <span class="pdl-10 fs-14 fw-400 lh-20">
+          <p class="mb-0">All Programs</p>
+        </span>
+      </div>
+
+
+      <div class="mb-4 mt-3">
+        <p class="border-left-program ps-3 fs-20 fw-500 base-txt-clr">Programs</p>
+
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12 text-center bg-illustration"></div>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="row ">
+    <div *ngFor="let action of visibleProfileActions" class="custom-col mb-3">
+      <div class="card home-page-cards boxy-card text-center fs-16 fw-400 lh-22">
+        {{ action?.label }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -52,3 +52,21 @@ export interface ModalConfig {
   showTitle?: boolean;
   showSuccessIcon?: boolean;
 }
+
+
+
+export interface ProjectUseCaseDetails {
+  id: string | number;
+  externalId: string;
+  name: string;
+  shortName: string;
+  longName: string;
+  description: string;
+  useCaseDetails: UseCaseDetails[];
+}
+
+export interface UseCaseDetails {
+  id: string | number;
+  projectId: string | number;
+  label: string;
+}

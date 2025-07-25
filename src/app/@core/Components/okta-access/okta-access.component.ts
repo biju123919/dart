@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthenticationService } from '../../service/authentication.service';
 import { UserManageService } from '../../service/user-manage.service';
+import { OverlayLoaderService } from '../../service/overlay-loader.service';
 
 @Component({
   selector: 'app-okta-access',
@@ -19,7 +20,8 @@ loading: boolean = false;
   constructor(
     private authenication: AuthenticationService,
     private router: Router,
-    private userManagementService: UserManageService
+    private userManagementService: UserManageService,
+    private overlayLoader : OverlayLoaderService
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,8 @@ loading: boolean = false;
   }
 
   async loadApp(idToken: string | null, accessToken: string | null) {
-    this.showLoaderComponent();
+    this.overlayLoader?.showLoader()
+    
     if (idToken && accessToken) {
       const userName = this.authenication.getDecodedAccessToken(idToken).name;
       const userEmail =
@@ -61,6 +64,7 @@ loading: boolean = false;
 
       this.hideLoaderComponent();
       if (isEmailMatch) {
+        this.overlayLoader?.hideLoader()
         this.router.navigate(['/dashboard']);
       } else {
         this.router.navigate(['/dashboard']);
@@ -68,6 +72,7 @@ loading: boolean = false;
     } else {
       this.authenication.oktaLogOut();
     }
+    this.overlayLoader?.hideLoader()
     return;
   }
 

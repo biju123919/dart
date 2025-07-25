@@ -7,8 +7,8 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": false,
           "style": "none",
+          "standalone": false,
           "skipTests": true
         },
         "@schematics/angular:directive": {
@@ -17,6 +17,21 @@
         },
         "@schematics/angular:pipe": {
           "standalone": false,
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
           "skipTests": true
         }
       },

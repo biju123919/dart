@@ -1,71 +1,175 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormControl,
-  AbstractControl,
-  ValidationErrors,
-  FormArray,
-  ValidatorFn,
+  FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidationErrors, FormArray
 } from '@angular/forms';
 import { GenerativeAIService } from '../../services/generative-ai.service';
-import { PromptComponent } from '../../modals/prompt/prompt.component';
-import { MatDialog } from '@angular/material/dialog';
-// import { ModalService } from '../../../shared/service/modal.service';
-// import { SharedService } from '../../../shared/service/shared.service';
-// import { CommonSuccessModalComponent } from '../../../shared/components/common-success-modal/common-success-modal.component';
 import { ComputeConcordance, Model, Prompt } from '../../../@core/model/dto/entity.model';
-import { SavePromptPayload, UpdatePromptPayload } from '../../../@core/model/dto/payload.dto';
+import { PostExecutePromptPayload, SaveOrUpdatePromptPayload } from '../../../@core/model/dto/payload.dto';
+import { Options } from '@angular-slider/ngx-slider';
+import { SvgIcon } from 'src/app/@core/enums/svg-icon';
+import { SessionStateService } from 'src/app/@core/state-management/session-state.service';
+
+interface DropdownOption {
+  value: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-execute-prompts',
   standalone: false,
   templateUrl: './execute-prompts.component.html',
   styleUrl: './execute-prompts.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class ExecutePromptsComponent implements OnInit {
+  // Angular Inputs
+  @Input() selectedPrompt: any;
+  @Input() selectedPrompts: { [index: number]: any } = {};
+
+  // Angular Outputs
+  @Output() openPrompt = new EventEmitter<number>();
+  @Output() promptTextChanged = new EventEmitter<any>();
+  @Output() openModal = new EventEmitter<'load' | 'save'>();
+
+  // ViewChild / ViewChildren
+  @ViewChildren('promptDiv') promptDivs!: QueryList<ElementRef>;
+
+  // Dependency Injection
   private fb = inject(FormBuilder);
   private generativeAIService = inject(GenerativeAIService);
-  public dialog = inject(MatDialog);
-  // private modalService = inject(ModalService);
+  private sessionStateService = inject(SessionStateService);
 
-  computeConcordances: ComputeConcordance[] = [];
-  models: Model[] = [];
-  refreshingStates: boolean[] = [];
-  promptsData: Prompt[] = [];
-  promptData: Prompt[] = [];
-  modelsAsOptions: { value: string; label: string }[] = [];
-  computeConcordanceAsOptions: { value: string; label: string }[] = [];
-  promptId: any;
-  promptText: string = '';
-  promptName: string = '';
+  // Public UI State
+  svgIcon = SvgIcon;
+  activePromptIndex: number | null = null;
+
+  // Prompt Properties
   promptLabels = ['Prompt A', 'Prompt B', 'Prompt C'];
-  useCaseId?: string | number;
-  isLoadPrompt?: boolean;
+  promptTexts: string[] = [];
+  promptNames: string[] = [];
+  promptIds: number[] = [];
 
+  // Range Values
+  valueStart = 0;
+  valueEnd = 0;
 
-  myForm = this.fb.group(
+  // Form
+  promptForm = this.fb.group(
     {
       computeConcordanceBy: ['', Validators.required],
       model: [null, Validators.required],
-      range: [0, [Validators.min(0), Validators.max(100)]],
+      range: [[this.valueStart, this.valueEnd], [Validators.required, this.rangeValidator]],
       prompts: this.fb.array(
-        [this.fb.control(''), this.fb.control(''), this.fb.control('')],
-        [this.atLeastOnePromptRequiredValidator()]
-      ),
-    },
-    { validators: this.atLeastOneTextareaFilled }
+        this.promptLabels.map(() => this.fb.control('')),
+        [this.atLeastOneFilledValidator]
+      )
+    }
   );
 
+  // Concordances & Models
+  computeConcordances: ComputeConcordance[] = [];
+  models: Model[] = [];
+  modelsAsOptions: { value: string; label: string }[] = [];
+  computeConcordanceAsOptions: { value: string; label: string }[] = [];
+  refreshingStates: boolean[] = [];
+
+  // Session/User Info
+  userId: string = '';
+  useCaseId: string = '';
+
+  // Editor & Prompt Display Control
+  showEditor: { [key: number]: boolean } = {};
+  promptTextContents: { [key: number]: string } = {};
+
+  // Constants
+  sliderOptions: Options = {
+    floor: 0,
+    ceil: 100,
+    showSelectionBar: true,
+    step: 1,
+  };
+
+  // Component State
+  selectedCompute: { value: string; label: string } | null = null;
+  selectedModel: { value: string; label: string } | null = null;
+
+  // Angular lifecycle hooks
+  ngOnChanges() {
+    if (this.selectedPrompt && this.activePromptIndex !== null) {
+      const promptText = this.selectedPrompt.promptText;
+      const promptName = this.selectedPrompt.promptName;
+      const promptId = this.selectedPrompt.id;
+
+      const div = this.promptDivs.toArray()[this.activePromptIndex]?.nativeElement;
+      if (div && div.innerText !== promptText) {
+        div.innerText = promptText;
+      }
+      this.promptTexts[this.activePromptIndex] = promptText;
+      this.promptNames[this.activePromptIndex] = promptName;
+      this.promptIds[this.activePromptIndex] = promptId;
+    }
+  }
 
   ngOnInit(): void {
+    this.useCaseId = localStorage.getItem('useCaseId') ?? '';
+    this.userId = this.sessionStateService?.userDetails?.externalId;
     this.refreshingStates = this.prompts.controls.map(() => false);
     this.loadComputeConcordanceBy();
     this.loadModels();
-    this.useCaseId = localStorage.getItem('useCaseId') ?? '';
   }
 
+  ngAfterViewInit() {
+    this.promptDivs.forEach((div, i) => {
+      div.nativeElement.innerText = this.promptTexts[i] || '';
+    });
+  }
+
+  // Public getters
+  get rangeControl() {
+    return this.promptForm.get('range') as FormControl;
+  }
+
+  get prompts(): FormArray {
+    return this.promptForm.get('prompts') as FormArray;
+  }
+
+  getFormControl(name: string): FormControl {
+    return this.promptForm.get(name) as FormControl;
+  }
+
+  getControlName(index: number): string {
+    return ['textareaA', 'textareaB', 'textareaC'][index];
+  }
+
+  // Form validators
+  rangeValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value || !Array.isArray(value) || value.length !== 2) {
+      return { required: true };
+    }
+    const [start, end] = value;
+    if (start === null || end === null || start >= end) {
+      return { invalidRange: true };
+    }
+    return null;
+  }
+
+  atLeastOneFilledValidator(control: AbstractControl): ValidationErrors | null {
+    const array = control as FormArray;
+    const values = array.controls.map(c =>
+      typeof c.value === 'string' ? c.value.trim() : ''
+    );
+    return values.some(v => v) ? null : { atLeastOneRequired: true };
+  }
+
+  atLeastOneTextareaFilled(control: AbstractControl): ValidationErrors | null {
+    const group = control as FormGroup;
+    const values = Object.values(group.controls).map((c) => {
+      return typeof c.value === 'string' ? c.value.trim() : '';
+    });
+    return values.some((v) => v) ? null : { atLeastOneRequired: true };
+  }
+  // Form/data loading
   loadComputeConcordanceBy(): void {
     this.generativeAIService.getComputeConcordances().subscribe({
       next: (response: ComputeConcordance[]) => {
@@ -83,10 +187,6 @@ export class ExecutePromptsComponent implements OnInit {
     });
   }
 
-  onPromptChange() {
-    this.prompts.updateValueAndValidity();
-  }
-
   loadModels(): void {
     this.generativeAIService.getModels().subscribe({
       next: (response: Model[]) => {
@@ -102,285 +202,132 @@ export class ExecutePromptsComponent implements OnInit {
     });
   }
 
+  // Event handlers (UI)
+  onPromptChange() {
+    this.prompts.updateValueAndValidity();
+  }
+
   onSubmit(): void {
-    if (this.myForm.valid) {
-      console.log('Form submitted:', this.myForm.value);
-    } else {
-      console.log('Form is not valid');
-    }
-  }
-
-  getControlName(index: number): string {
-    return ['textareaA', 'textareaB', 'textareaC'][index];
-  }
-
-  atLeastOneTextareaFilled(control: AbstractControl): ValidationErrors | null {
-    const group = control as FormGroup;
-    const values = Object.values(group.controls).map((c) => {
-      return typeof c.value === 'string' ? c.value.trim() : '';
-    });
-    return values.some((v) => v) ? null : { atLeastOneRequired: true };
-  }
-
-  get rangeControl() {
-    return this.myForm.get('range') as FormControl;
-  }
-
-  getFormControl(name: string): FormControl {
-    return this.myForm.get(name) as FormControl;
-  }
-
-  get prompts(): FormArray {
-    return this.myForm.get('prompts') as FormArray;
-  }
-
-  onSave(index: number) {
-    this.openSavePromptModal(index);
-    const isSelectedPrompt = false;
-    localStorage.setItem('isSelectedPrompt', JSON.stringify(isSelectedPrompt));
-  }
-
-  openSavePromptModal(index: number) {
-    const promptText = this.prompts.at(index).value;
-    let promptName = this.promptName;
-    const promptId = this.promptId;
-
-    const storedValue = localStorage.getItem('isSelectedPrompt');
-    const isSelectedPrompt = storedValue ? JSON.parse(storedValue) : false;
-
-    if (isSelectedPrompt == false) {
-      promptName = '';
-    }
-
-    // this.modalService.openModal({
-    //   title: 'Save Prompt',
-    //   content: 'Save your Prompt',
-    //   onSave: (promptName?: string) =>
-    //     this.openValidateNamePrompt(promptId, promptName, promptText, index),
-    //   data: { promptName },
-    //   confirmButtonText: 'Save',
-    //   cancelButtonText: 'Close',
-    // });
-  }
-
-  openValidateNamePrompt(
-    promptId: any,
-    promptName?: string,
-    promptText?: string,
-    index?: number
-  ) {
-    const promptsData = JSON.parse(localStorage.getItem('promptData') || '[]');
-    const promtNameExists = promptsData.some(
-      (f: Prompt) => f.promptName === promptName
-    );
-
-    if (!promtNameExists) {
-      this.createPrompt(promptName, promptText);
-    } else {
-      // this.modalService.openModal({
-      //   title: 'Save Prompt',
-      //   content:
-      //     'The entered Prompt Name already exists in the system. Do you want to overwrite it?',
-      //   onSave: () => this.updatePrompt(promptId, promptName, promptText),
-      //   isWarning: true,
-      //   isNameExists: true,
-      //   data: '',
-      //   confirmButtonText: 'Yes',
-      //   cancelButtonText: 'No',
-      //   showDeclineIcon: true,
-      // });
-    }
-    // this.promptsData = this.sharedService.getValue('prompts');
-
-    //  const fff = this.promptsData?.find((f) => f.promptName == promptName);
-    //  const eixts = this.promptData?.find((f) => f.promptName == promptName);
-
-    // if (fff || eixts) {
-    //   const promptExistName = this.promptName;
-    //   let updatedPromptName = '';
-    //   if (promptExistName == '') {
-    //     updatedPromptName = this.promptName;
-    //   }
-    //   if (updatedPromptName == '') {
-    //     updatedPromptName = String(promptName);
-    //   }
-
-    //   this.modalService.openModal({
-    //     title: 'Save Prompt',
-    //     content:
-    //       'The entered Prompt Name already exists in the system. Do you want to overwrite it?',
-    //     onSave: () => this.openLast(updatedPromptName, promptText),
-    //     isWarning: true,
-    //     data: '',
-    //     showInput: true,
-    //     confirmButtonText: 'Yes',
-    //     cancelButtonText: 'No',
-    //     showDeclineIcon: true,
-    //     showSuccessIcon: false,
-    //     showTitle: true,
-    //   });
-    // } else {
-    //   {
-    //     this.openLast(promptName, promptText);
-    //   }
-    // }
-    this.prompts.at(Number(index)).setValue('');
-  }
-
-  createPrompt(promptName: any, promptText: any) {
-    const payload: SavePromptPayload = {
-      promptName: promptName ?? '',
-      promptText: promptText ?? '',
-      useCaseId: String(this.useCaseId),
-      userId: localStorage.getItem('userId') ?? '',
-    };
-    this.generativeAIService.savePrompt(payload).subscribe({
-      next: () => {
-        this.openSuccessModal();
-      },
-      error: (err) => {
-        console.log('An error occurred and was handled by the interceptor');
-      },
-    });
-  }
-
-  updatePrompt(promptId: any, promptName: any, promptText: any) {
-    const payload: UpdatePromptPayload = {
-      id: promptId,
-      promptName: promptName ?? '',
-      promptText: promptText ?? '',
-      useCaseId: String(this.useCaseId),
-      userId: localStorage.getItem('userId') ?? '',
-    };
-    this.generativeAIService.updatePrompt(payload).subscribe({
-      next: () => {
-        this.openSuccessModal();
-      },
-      error: (err) => {
-        console.log('An error occurred and was handled by the interceptor');
-      },
-    });
-  }
-
-  openSuccessModal(): void {
-    // const dialogRef = this.dialog.open(CommonSuccessModalComponent, {
-    //   data: { message: 'Your Prompt has been successfully deleted.!' },
-    // });
-    // dialogRef.afterClosed().subscribe(() => { });
-  }
-
-  // openLast(promptName?: string, promptText?: string) {
-  //   const userId = '1';
-  //   this.promptsData = this.sharedService.getValue('prompts');
-  //   const promptExists = this.promptsData?.find(
-  //     (f) => f.promptName == promptName
-  //   );
-  //   const promptId = this.sharedService.getValue('promptId');
-  //   if (promptExists) {
-  //     const payload: UpdatePromptPayload = {
-  //       id: promptId,
-  //       promptName: promptName ?? '',
-  //       promptText: promptText ?? '',
-  //       useCaseId: String(this.useCaseId),
-  //       userId: userId,
-  //     };
-  //     this.generativeAIService.updatePrompt(payload).subscribe({
-  //       next: () => {
-  //         this.modalService.openModal({
-  //           content: 'Your Prompt has been saved successfully!',
-  //           onSave: () => {
-  //             this.modalService.closeModal();
-  //           },
-  //           data: undefined,
-  //           // showInput: false,
-  //           showTitle: false,
-  //           showSuccessIcon: true,
-  //           title: '',
-  //         });
-  //       },
-  //       error: (err) => {
-  //         console.log('An error occurred and was handled by the interceptor');
-  //       },
-  //     });
-  //   } else {
-  //     const payload: SavePromptPayload = {
-  //       promptName: promptName ?? '',
-  //       promptText: promptText ?? '',
-  //       useCaseId: String(this.useCaseId),
-  //       userId: userId,
-  //     };
-  //     this.generativeAIService.savePrompt(payload).subscribe({
-  //       next: () => {
-  //         // this.modalService.openModal({
-  //         //   content: 'Your Prompt has been saved successfully!',
-  //         //   onSave: () => {
-  //         //     this.modalService.closeModal();
-  //         //   },
-  //         //   data: undefined,
-  //         //   showInput: false,
-  //         //   showTitle: false,
-  //         //   showSuccessIcon: true,
-  //         //   title: '',
-  //         // });
-  //         //  this.modalService.openModal({
-  //         //   content: 'Your Prompt has been saved successfully!',
-  //         //   onSave: () => {
-  //         //     this.modalService.closeModal();
-  //         //   },
-  //         //   data: undefined,
-  //         //   showInput: false,
-  //         //   showOkButton: true,
-  //         //   showTitle: false,
-  //         //   showSuccessIcon: true,
-  //         //   title: '',
-  //         // });
-  //       },
-  //       error: (err) => {
-  //         console.log('An error occurred and was handled by the interceptor');
-  //       },
-  //     });
-  //   }
-  // }
-
-  onLoad(index: number): void {
-    const dialogRef = this.dialog.open(PromptComponent, {
-      disableClose: true,
-      data: {
-        currentValue: this.prompts.at(index).value,
-        useCaseId: this.useCaseId,
-      },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.promptText = result?.promptText;
-      this.promptName = result?.promptName;
-      this.promptId = result?.promptId;
-      //       const storedValue = localStorage.getItem('isSelectedPrompt');
-      // const isSelectedPrompt = storedValue ? JSON.parse(storedValue) : false;
-      if (result) {
-        this.prompts.at(index).setValue(result.promptText);
+    if (this.promptForm.valid) {
+      const reportsRange = this.promptForm.get('range')?.value;
+      const modelControl = this.promptForm.get('model')?.value;
+      const computeConcordanceByControl = this.promptForm.get('computeConcordanceBy')?.value;
+      let modelValue: string | null = null;
+      if (modelControl && typeof modelControl === 'object') {
+        modelValue = (modelControl as DropdownOption).value;
       }
-      console.log('Dialog closed with result:', result);
-    });
+
+      let computeConcordanceByValue: string | null = null;
+      if (computeConcordanceByControl && typeof computeConcordanceByControl === 'object') {
+        computeConcordanceByValue = (computeConcordanceByControl as DropdownOption).value;
+      }
+      const promptTextValues = this.promptForm.value.prompts;
+      console.log(this.promptIds);
+      let promptATextId: any, promptBTextId: any, promptCTextId: any;
+      [promptATextId, promptBTextId, promptCTextId] = this.promptIds;
+      let promptA: any, promptB: any, promptC: any;
+      if (Array.isArray(promptTextValues) && promptTextValues.length === 3) {
+        [promptA, promptB, promptC] = promptTextValues;
+      } else {
+        console.warn('Invalid range selected');
+      }
+
+      let reportStart: any, reportEnd: any;
+      if (Array.isArray(reportsRange) && reportsRange.length === 2) {
+        [reportStart, reportEnd] = reportsRange;
+      } else {
+        console.warn('Invalid range selected');
+      }
+
+      const payload: PostExecutePromptPayload = {
+        userId: this.userId,
+        useCaseId: Number(this.useCaseId),
+        computeConcordanceId: Number(computeConcordanceByValue),
+        modelId: Number(modelValue),
+        reportToProcessStart: reportStart,
+        reportToProcessEnd: reportEnd,
+        promptAId: promptATextId ?? null,
+        promptBId: promptBTextId ?? null,
+        promptCId: promptCTextId ?? null,
+        PromptAText: promptA ?? '',
+        PromptBText: promptB ?? '',
+        PromptCText: promptC ?? '',
+      };
+
+      this.generativeAIService.postPromptExecution(payload).subscribe({
+        next: (response) => {
+          const id = response.data;
+        },
+        error: (err) => {
+          console.log('An error occurred and was handled by the interceptor');
+        },
+      });
+    } else {
+      //alert('Form is invalid');
+    }
   }
 
   onRefresh(index: number): void {
-    this.prompts.at(index).setValue('');
-    this.refreshingStates[index] = true;
-    this.prompts.markAsPristine();
-    this.prompts.updateValueAndValidity();
-    this.refreshingStates[index] = true;
-    setTimeout(() => {
-      this.refreshingStates[index] = false;
-    }, 500);
+    this.promptTexts[index] = '';
+    this.promptNames[index] = '';
+    this.promptIds[index] = 0;
+    const div = this.promptDivs.toArray()[index]?.nativeElement;
+    if (div) {
+      div.innerText = '';
+    }
   }
 
-  private atLeastOnePromptRequiredValidator(): ValidatorFn {
-    return (formArray: AbstractControl): ValidationErrors | null => {
-      const controls = (formArray as FormArray).controls;
-      const hasAtLeastOne = controls.some(
-        (control) => control.value && control.value.trim().length > 0
-      );
-      return hasAtLeastOne ? null : { atLeastOneRequired: true };
-    };
+  onComputeChange(selected: { value: string; label: string }) {
+    this.selectedCompute = selected;
+  }
+
+  onModelChange(selected: { value: string; label: string }) {
+    this.selectedModel = selected;
+  }
+
+  togglePromptText(index: number): void {
+    this.showEditor[index] = true;
+    setTimeout(() => {
+      const div = this.promptDivs.toArray()[index]?.nativeElement;
+      if (div) {
+        div.innerText = this.promptTexts[index] || '';
+      }
+    });
+  }
+
+  onContentChange(event: Event, index: number): void {
+    const value = (event.target as HTMLElement).innerText;
+    this.promptTexts[index] = value;
+    const promptsArray = this.promptForm.get('prompts') as FormArray;
+    promptsArray.at(index).setValue(value);
+    this.promptTextChanged.emit({ index, value });
+  }
+
+  onCollapsePrompt(index: number): void {
+    const promptDiv = this.promptDivs.toArray()[index]?.nativeElement;
+    if (promptDiv) {
+      const text = promptDiv.innerText.trim();
+      this.promptTextContents[index] = text;
+    }
+    this.showEditor[index] = false;
+  }
+
+  onSavePrompt(index: number): void {
+    if (this.selectedPrompt) {
+      this.selectedPrompt.promptName = this.promptNames[index];
+      this.selectedPrompt.promptText = this.promptTexts[index];
+      this.selectedPrompt.id = this.promptIds[index];
+    }
+    this.openModal.emit('save');
+  }
+
+  onLoadPrompt(i: number) {
+    this.activePromptIndex = i;
+    this.openModal.emit('load');
+  }
+
+  // Utility / Validation Helpers
+  hasValidContent(index: number): boolean {
+    return this.promptTexts[index]?.trim().length > 0;
   }
 }

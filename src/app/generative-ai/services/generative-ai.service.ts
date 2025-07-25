@@ -1,12 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, mergeMap, Observable } from 'rxjs';
 import { ApiEndpoints } from '../../@core/constants/api-endpoints';
 import { AppConfigService } from '../../@core/service/app.config.service';
-import { ComputeConcordance, Model, Project, Prompt, UseCase } from '../../@core/model/dto/entity.model';
-import { mapComputeConcordanceEntityDtoToModel, mapModelEntityDtoToModel, mapProjectEntityDtoToModel, mapPromptEntityDtoToModel, mapUseCaseEntityDtoToModel } from '../../@core/mapper/entity.mapper';
+import { ComputeConcordance, Model, Project, ProjectUseCaseDetails, Prompt, UseCase } from '../../@core/model/dto/entity.model';
+import { mapComputeConcordanceEntityDtoToModel, mapModelEntityDtoToModel, mapProjectEntityDtoToModel, mapPromptEntityDtoToModel, mapToProjectUseCaseEntity, mapUseCaseEntityDtoToModel } from '../../@core/mapper/entity.mapper';
 import { ComputeConcordanceDTO, ModelDTO, ProjectDTO, PromptDTO, UseCaseDTO } from '../../@core/model/dto/entity.dto';
-import { DeletePromptPayload, SavePromptPayload, UpdatePromptPayload } from '../../@core/model/dto/payload.dto';
+import { DeletePromptPayload, PostExecutePromptPayload, SaveOrUpdatePromptPayload } from '../../@core/model/dto/payload.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +19,32 @@ export class GenerativeAIService {
   ) {
     this.generativeAIApiUrl =
       this.appConfigService.environment.api.generativeAIUrl;
+  }
+
+  // getProjectsWithUseCases(userId: string): Observable<Array<{ project: Project; useCases: UseCase[] }>> {
+  //   return this.getUserAccessProjects(userId).pipe(
+  //     mergeMap((projects: Project[]) => {
+  //       const projectUseCaseCalls = projects.map(project =>
+  //         this.getUseCasesByProjectId(Number(project.id)).pipe(
+  //           map(useCases => ({ project, useCases }))
+  //         )
+  //       );
+  //       return forkJoin(projectUseCaseCalls);
+  //     })
+  //   );
+  // }
+
+  getProjectsWithUseCases(userId: string): Observable<ProjectUseCaseDetails[]> {
+    return this.getUserAccessProjects(userId).pipe(
+      mergeMap((projects: Project[]) => {
+        const projectUseCaseCalls = projects.map(project =>
+          this.getUseCasesByProjectId(Number(project.id)).pipe(
+            map(useCases => mapToProjectUseCaseEntity({ project, useCases }))
+          )
+        );
+        return forkJoin(projectUseCaseCalls);
+      })
+    );
   }
 
   getUserAccessProjects(userId: string): Observable<Project[]> {
@@ -65,16 +91,9 @@ export class GenerativeAIService {
       .pipe(map((response) => response.data.map(mapPromptEntityDtoToModel)));
   }
 
-  savePrompt(payload: SavePromptPayload) {
-    const url = `${this.generativeAIApiUrl}/${ApiEndpoints.savePrompt}`;
+  saveOrUpdatePrompt(payload: SaveOrUpdatePromptPayload): Observable<any> {
+    const url = `${this.generativeAIApiUrl}/${ApiEndpoints.saveOrUpdatePrompt}`;
     return this.http.post(url, payload);
-  }
-
-  updatePrompt(payload: UpdatePromptPayload): Observable<any> {
-    const url = `${this.generativeAIApiUrl}/${ApiEndpoints.updatePrompt(
-      payload.id!
-    )}`;
-    return this.http.put(url, payload);
   }
 
   deletePrompt(payload: DeletePromptPayload): Observable<Prompt[]> {
@@ -83,5 +102,10 @@ export class GenerativeAIService {
       payload.userId!
     )}`;
     return this.http.delete<Prompt[]>(url);
+  }
+
+  postPromptExecution(payload: PostExecutePromptPayload): Observable<any> {
+    const url = `${this.generativeAIApiUrl}/prompt-execution/execute`;
+    return this.http.post(url, payload);
   }
 }

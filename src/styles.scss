@@ -1,15 +1,18 @@
 @use 'assets/styles/definitions';
-@use 'assets/styles/fonts';
-@use 'assets/styles/typography';
-@use 'assets/styles/variables';
 @use 'assets/styles/common';
-@use 'assets/styles/modals';
-@use 'assets/styles/material';
 @use 'assets/styles/custom';
+@use 'assets/styles/fonts';
 @use 'assets/styles/forms';
-@use 'assets/styles/icons';
 @use 'assets/styles/general';
+@use 'assets/styles/header';
+@use 'assets/styles/icons';
 @use 'assets/styles/input_elements';
+@use 'assets/styles/material';
+@use 'assets/styles/mixins';
+@use 'assets/styles/modals';
+@use 'assets/styles/overlay_loader';
+@use 'assets/styles/side_menu';
 @use 'assets/styles/table';
 @use 'assets/styles/toast';
-
+@use 'assets/styles/typography';
+@use 'assets/styles/variables';

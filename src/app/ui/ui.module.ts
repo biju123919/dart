@@ -25,18 +25,21 @@ import { errorInterceptor } from '../@core/interceptor/error.interceptor';
 import { AppConfigProviders, AppConfigService } from '../@core/service/app.config.service';
 import { AuthenticationService } from '../@core/service/authentication.service';
 import { UiCoreModule } from '../@core/ui-core.module';
-import { LayoutModule } from '../old-layout/layout.module';
 import { UiRoutingModule } from './ui-routing-module';
-import { ReportsComponent } from './reports/reports.component';
+import { LandingDashboardComponent } from './landing-dashboard/landing-dashboard.component';
+import { LayoutModule } from '../@core/@layout/layout.module';
+import { OldLayoutModule } from '../old-layout/old-layout.module';
 
 
 @NgModule({
   declarations: [
     UiComponent,
+    LandingDashboardComponent,
   ],
   imports: [
     BrowserModule,
     LayoutModule,
+    OldLayoutModule,
     OAuthModule.forRoot(),
     MatDividerModule,
     MatRadioModule,
@@ -51,7 +54,6 @@ import { ReportsComponent } from './reports/reports.component';
     MatExpansionPanelHeader,
     MatIconModule,
     MatPaginatorModule,
-    // SharedModule,
     ReactiveFormsModule,
     MatIconModule,
     MatTableModule,
@@ -59,8 +61,7 @@ import { ReportsComponent } from './reports/reports.component';
     GenerativeAIModule,
     RouterModule,
     UiCoreModule,
-    UiRoutingModule,
-    ReportsComponent
+    UiRoutingModule
   ],
   providers: [
     AuthenticationService,

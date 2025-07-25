@@ -1,0 +1,13 @@
+<div class="custom-modal-backdrop">
+    <div class="modal-dialog-top">
+        <div class="modal-content" [ngStyle]="{
+           'width': data?.width || '30%',
+           'height': data?.height || '10%'
+         }">
+            <h5 class="modal-title text-center">{{ title }}</h5>
+            <div class="modal-body">
+                <ng-container *ngTemplateOutlet="templateRef; context: { data: data }"></ng-container>
+            </div>
+        </div>
+    </div>
+</div>

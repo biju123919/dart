@@ -1,5 +1,5 @@
 import { ComputeConcordanceDTO, ModelDTO, ProjectDTO, PromptDTO, UseCaseDTO } from "../model/dto/entity.dto";
-import { ComputeConcordance, Model, Project, Prompt, UseCase } from "../model/dto/entity.model";
+import { ComputeConcordance, Model, Project, ProjectUseCaseDetails, Prompt, UseCase } from "../model/dto/entity.model";
 
 export function mapProjectEntityDtoToModel(dto: ProjectDTO): Project {
   return {
@@ -45,3 +45,23 @@ export function mapPromptEntityDtoToModel(dto: PromptDTO): Prompt {
     userId: dto.userId,
   };
 }
+
+
+export function mapToProjectUseCaseEntity(data: { project: Project; useCases: UseCase[] }): ProjectUseCaseDetails {
+  return {
+    id: data.project.id,
+    externalId: data.project.externalId,
+    name: data.project.name,
+    shortName: data.project.shortName,
+    longName: data.project.longName,
+    description: data.project.description,
+    useCaseDetails: data.useCases.map(h => ({
+      id: h.id,
+      projectId: h.projectId,
+      label: h.label
+    })),
+  };
+}
+
+
+

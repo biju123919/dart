@@ -7,6 +7,7 @@ import { TimeoutWarningModalComponent } from './Components/timeout-warning-modal
 import { ToastComponent } from './Components/toast/toast.component';
 import { IconComponent } from './Components/Icons/icon.component';
 import { OverlayLoaderComponent } from './Components/overlay-loader/overlay-loader.component';
+import { DialogComponent } from './Components/dialog/dialog.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { OverlayLoaderComponent } from './Components/overlay-loader/overlay-load
     ToastComponent,
     TimeoutWarningModalComponent,
     IconComponent,
-    OverlayLoaderComponent
+    OverlayLoaderComponent,
+    DialogComponent,
   ],
   imports: [
     CommonModule
@@ -29,7 +31,7 @@ import { OverlayLoaderComponent } from './Components/overlay-loader/overlay-load
     ToastComponent,
     TimeoutWarningModalComponent,
     IconComponent,
-    OverlayLoaderComponent
+    OverlayLoaderComponent,
   ]
 })
 export class UiCoreModule { }

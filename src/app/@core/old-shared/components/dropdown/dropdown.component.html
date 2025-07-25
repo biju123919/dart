@@ -1,0 +1,15 @@
+<div class="reject-dropdown position-relative" (click)="toggleDropdown()" #dropdownRef>
+  <div class="selected-options d-flex justify-content-between align-items-center py-1" (mouseenter)="hover = true"
+    (mouseleave)="hover = false">
+    <span>{{ selected?.label || placeholder }}</span>
+    <icon [icon]="svgIcon.DefaultDownArrow" [ngClass]="{ 'rotate-180': isOpen }">
+    </icon>
+
+   
+  </div>
+  <div *ngIf="isOpen" class="options position-absolute w-100 bg-white border shadow-sm">
+    <div class="display-options px-2 py-1" *ngFor="let option of options" (click)="selectOption(option, $event)">
+      {{ option.label }}
+    </div>
+  </div>
+</div>

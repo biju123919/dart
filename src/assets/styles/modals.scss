@@ -133,12 +133,30 @@
   padding: 0 16px;
   background: var(--accordion-expanded-color);
 
-  max-height: 75px;
+  max-height: 250px;
   overflow-y: auto;
   transition: max-height 0.3s ease;
 
   scrollbar-width: thin;
   scrollbar-color: var(--border-bottom-color) transparent;
+}
+
+.useCase-height {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.useCase-height::-webkit-scrollbar {
+  width: 2px;
+}
+
+.useCase-height::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #7996B8;
+}
+
+.useCase-height::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .accordion-body::-webkit-scrollbar {

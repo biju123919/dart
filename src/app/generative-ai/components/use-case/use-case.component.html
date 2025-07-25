@@ -1,11 +1,12 @@
 <div class="usecase-container" *ngIf="!isCollapsed">
-  <div class="executePrompt" style="border-right: thick">
-    <div class="box">
+  <div class="executePrompt">
+    <div class="box" style="background-color:#456899;">
       <span>
         <img style="margin-left: 2%; margin-top: 2%" src="assets/icons/back.svg" class="back-icon"
           (click)="backArrowClick()" />
       </span>
-      <app-execute-prompts></app-execute-prompts>
+      <app-execute-prompts (openModal)="openModalFromParent($event)" (promptTextChanged)="handlePromptUpdate($event)"
+        [selectedPrompt]="selectedPrompt"></app-execute-prompts>
     </div>
   </div>
   <div class="dataset">
@@ -44,3 +45,51 @@
   </div>
 </div>
 <app-dataset *ngIf="isCollapsed"></app-dataset>
+
+<app-prompt *ngIf="isPromptModalOpen" (promptSelected)="handlePromptSelected($event)"
+  (close)="closePromptModal()"></app-prompt>
+
+<!-- Save Prompt Modal Template -->
+<ng-template #savePromptModal let-data="data">
+  <div class="modal-body-content">
+    <p class="modal-subtitle">Save your Prompt</p>
+    <input [(ngModel)]="data.name" maxlength="100" (ngModelChange)="onNameChange(data.name)" />
+    <div class="mt-4 d-flex justify-content-center">
+      <button class="btn btn-secondary  me-2" (click)="handleModalClose('close')">
+        Close
+      </button>
+      <button class="btn btn-primary" [disabled]="!isNameValid" (click)="handleModalClose('save', data)">
+        Save
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Edit Prompt Modal Template -->
+<ng-template #editPromptModal let-data="data">
+  <p class="edit-warning-message">{{ data.message }}</p>
+  <div class="input-icon-wrapper">
+    <input [(ngModel)]="data.name" placeholder="Enter prompt name" disabled />
+    <icon [icon]="this.svgIcon.DeclinedError" class="input-end-icon"></icon>
+  </div>
+  <div class="mt-4 d-flex justify-content-center">
+    <button class="btn btn-secondary me-2" (click)="handleModalClose('no')">No</button>
+    <button class="btn btn-primary" [disabled]="!isNameValid" (click)="handleModalClose('yes', data)">Yes</button>
+  </div>
+</ng-template>
+
+<!-- Success Modal Template -->
+<ng-template #infoModal let-data="data">
+  <div class="text-center mb-3">
+    <icon [icon]="svgIcon.SuccessDoneCompleted" class="success-icon"></icon>
+  </div>
+  <p class="text-center">{{ data.message }}</p>
+  <div class="mt-3 d-flex justify-content-center">
+    <button class="btn btn-primary" (click)="handleModalClose('close')">Close</button>
+  </div>
+</ng-template>
+
+<!-- Generic Modal Host -->
+<app-save-edit-prompt *ngIf="isSaveModalOpen" [title]="modalTitle" [templateRef]="activeTemplate" [data]="modalData"
+  (modalResult)="onModalResult($event)">
+</app-save-edit-prompt>

@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+/.vs/dart_internal/CopilotIndices/17.13.441.19478
+/.vs/dart_internal/FileContentIndex
+/.vs/dart_internal/v17

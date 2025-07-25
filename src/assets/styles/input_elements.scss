@@ -1,1 +1,72 @@
 @use 'definitions';
+
+input::placeholder {
+    color: var(--dark-clr);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+input.form-control:focus {
+    box-shadow: none;
+    border-color: transparent;
+    /* or the same as background */
+}
+
+.form-check-input {
+    background-color: var(--profile-dropdown-bg-clr);
+    border-color: var(--profile-dropdown-bg-clr);
+    
+    &:hover {
+        background-color: var(--profile-dropdown-hover-bg-clr);
+        border-color: var(--profile-dropdown-hover-bg-clr);
+        
+        // Change the round toggle button (thumb) color on hover
+        &::before {
+            background-color: var(--profile-dropdown-hover-thumb-clr, #ffffff);
+        }
+    }
+    
+    // Style the toggle thumb (round button)
+    &::before {
+        background-color: var(--profile-dropdown-thumb-clr, #ffffff);
+        transition: background-color 0.15s ease-in-out;
+    }
+}
+
+.form-check-input:checked {
+    background-color: var(--profile-dropdown-bg-clr);
+    border-color: var(--profile-dropdown-bg-clr);
+    
+    &:hover {
+        background-color: var(--profile-dropdown-hover-bg-clr);
+        border-color: var(--profile-dropdown-hover-bg-clr);
+        
+        // Change the round toggle button (thumb) color on hover when checked
+        &::before {
+            background-color: var(--profile-dropdown-hover-thumb-clr, #ffffff);
+        }
+    }
+    
+    // Style the toggle thumb when checked
+    &::before {
+        background-color: var(--profile-dropdown-thumb-clr, #ffffff);
+    }
+}
+
+.custom-switch {
+    width: 46px !important;
+    height: 20px;
+}
+
+.input-icon {
+    outline: none !important;
+.display-options {
+padding: 8px;
+border-bottom: 1px solid #eee;
+}
+}
+
+.display-options:hover {
+background-color: #EAF1FF;
+}

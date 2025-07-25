@@ -3,15 +3,6 @@
   flex-direction: column;
 }
 
-span {
-  color: var(--Gray---gray-1000, #363636);
-  font-family: Roboto;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-}
-
 .line {
   background: var(--Gray---gray-400, #C9C9C9);
   width: 100%;
@@ -43,6 +34,12 @@ span {
   background-color: #fff;
 }
 
+
+.execute-btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .refresh-icon {
   display: flex;
@@ -122,4 +119,143 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.prompt-text-container {
+  border: 2px solid #dee2e6;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--Blue---blue-500, #97C2FB);
+  background: #456899;
+}
+
+.prompt-text-container:hover {
+  border-color: #fff;
+}
+
+.prompt-label {
+  overflow: hidden;
+  color: var(--Blue---blue-100, #EAF3FF);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.form-control {
+  padding: 0 !important;
+  border: none !important;
+  background-color: #456899 !important;
+  color: var(--gray-white-100-m, #FFF) !important;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.prompt-text-content.empty::before {
+  content: attr(data-placeholder);
+  color: green;
+  position: absolute;
+  pointer-events: none;
+  font-style: italic;
+}
+
+
+.prompt-text-content:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+.prompt-text-content {
+  height: 150px;
+  white-space: pre-wrap;
+  outline: none;
+  position: relative;
+  padding: 0.75rem;
+  overflow-y: auto;
+}
+
+.prompt-text-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.prompt-text-content::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #7996B8;
+}
+
+.prompt-text-content.empty::before {
+  content: attr(data-placeholder);
+  position: absolute;
+  font-style: normal;
+  pointer-events: none;
+  color: var(--blue-blue-300-m, #BFDAFD);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.save-label,
+.load-label {
+  color: var(--Blue---blue-200, #D1E1F7);
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.save-label:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.load-label:hover {
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.custom-icon {
+  height: 14px;
+  width: 14px;
+}
+
+.btn-group img {
+  vertical-align: middle;
+  height: 16px;
+  width: 16px;
+}
+
+.btn-group label {
+  vertical-align: middle;
+}
+
+.modal-dialog {
+  margin: 1rem auto 0 auto;
+  max-width: 600px;
+  transform: none !important;
+  top: 0 !important;
+}
+
+.prompt-text-container:hover .edit-icon {
+  filter: brightness(0) invert(1);
 }

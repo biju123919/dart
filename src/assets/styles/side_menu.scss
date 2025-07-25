@@ -1,0 +1,28 @@
+@use 'definitions';
+
+.side-menu-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 200px;
+    background-color: var(--header-bg-color);
+    color: var(--sidemenu-text-clr);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 4;
+}
+
+.side-menu-wrapper.open {
+    transform: translateX(0);
+}
+
+.side-menu {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.side-menu-items:hover {
+    background-color: var(--profile-dropdown-hover-bg-clr);
+}

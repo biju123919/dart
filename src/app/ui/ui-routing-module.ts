@@ -7,18 +7,29 @@ import { authGuard } from '../@core/guard/auth.guard';
 import { OktaAccessComponent } from '../@core/Components/okta-access/okta-access.component';
 import { WelcomeComponent } from '../old-layout/welcome/welcome.component';
 import { ReportsComponent } from './reports/reports.component';
+import { oktaSsoGuard } from '../@core/guard/okta-sso.guard';
+import { LandingDashboardComponent } from './landing-dashboard/landing-dashboard.component';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
+  { path: '', component: LandingDashboardComponent,
+    data:{title : 'Data analysis & research toolkit' }
+   },
   {
     path: 'dashboard',
     component: DashboardComponent,
     resolve: { user: UserInfoResolver },
-    canActivate: [authGuard],
+    canActivate: [oktaSsoGuard],
+    data:{title : 'Generative AI ' }
   },
-  { path: 'home', component: OktaAccessComponent },
+  {
+    path: 'home',
+    component: LandingDashboardComponent,
+    resolve: { userSync: UserInfoResolver },
+    canActivate: [oktaSsoGuard],
+    data:{title : 'Data analysis & research toolkit ' }
+  },
   { path: 'usecase/:project/:useCase', component: UseCaseComponent },
-  { path: 'reports', component: ReportsComponent },
+  { path: 'reports', component: ReportsComponent,   data:{title : 'Reports' } },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 

@@ -26,6 +26,9 @@ export class AuthenticationService {
     private browserStorageService: BrowserStorageService,
     private overlayLoaderService: OverlayLoaderService,
   ) { }
+  private isMenuVisible = new BehaviorSubject<boolean>(false);
+  _isMenuVisible$ = this.isMenuVisible.asObservable();
+
 
   initializeCoreService() {
     this.initializeOAuth2Flow();
@@ -61,7 +64,6 @@ export class AuthenticationService {
         if (id_token && access_token) {
           this.browserStorageService.setIdToken(id_token);
           this.browserStorageService.setAccessToken(access_token);
-          this.setUserInfo();
           this.setLoginStatus(true);
         }
       })
@@ -86,45 +88,47 @@ export class AuthenticationService {
     return !!sessionStorage.getItem('id_token');
   }
 
-  oktaLogOut(noRedirect?: boolean) {
-    const idToken = this.browserStorageService.getIdToken();
-    this.decodedIdToken = this.getDecodedAccessToken(idToken);
-    const userEmail = this.decodedIdToken?.preferred_username;
+oktaLogOut(noRedirect?: boolean) {
+  const idToken = this.browserStorageService.getIdToken();
+  if (!idToken) {
+    this.clearSession();
+    return;
+  }
 
-    if (idToken) {
+  try {
+    this.overlayLoaderService?.showLoader();
+
+    setTimeout(() => {
       try {
-        // Show loader first
-        this.overlayLoaderService.showLoader();
-        // Give the loader time to render before proceeding
-        setTimeout(() => {
-          try {
-            this.oauthService.logOut({
-              id_token_hint: idToken,
-              noRedirectToLogoutUrl: noRedirect || false,
-            });
-            this.browserStorageService.LS_clear();
-            this.browserStorageService.SS_Clear();
-            // Only hide loader if no redirect is happening
-            if (noRedirect) {
-              this.overlayLoaderService.hideLoader();
-            }
-            // If redirect is happening, don't hide loader as page will redirect
-          } catch (err: any) {
-            this.overlayLoaderService.hideLoader();
-            this.setLoginError('Okta logout error!');
-            this.redirectToLogout();
-          }
-        }, 100); // Small delay to ensure loader is visible
-      } catch (err: any) {
-        this.overlayLoaderService.hideLoader();
+        this.oauthService?.logOut({
+          id_token_hint: idToken,
+          noRedirectToLogoutUrl: noRedirect || false,
+        });
+
+        // Clear local and session storage after logout request is sent
+        this.browserStorageService.LS_clear();
+        this.browserStorageService.SS_Clear();
+
+        if (noRedirect) {
+          this.overlayLoaderService?.hideLoader();
+        }
+      } catch (err) {
+        console.error('Error during Okta logout in setTimeout:', err);
+        this.overlayLoaderService?.hideLoader();
         this.setLoginError('Okta logout error!');
         this.redirectToLogout();
       }
-    } else {
-      // No token, just clear session
-      this.clearSession();
-    }
+    }, 100);
+  } catch (err) {
+    console.error('Outer logout error:', err);
+    this.overlayLoaderService?.hideLoader();
+    this.setLoginError('Okta logout error!');
+    this.redirectToLogout();
   }
+
+  this.clearSession();
+}
+
 
   setLoginError(msg: string) {
     this.browserStorageService.setLoginError(msg);
@@ -180,27 +184,28 @@ export class AuthenticationService {
     return this.userInfoSubject.asObservable();
   }
 
-  setUserInfo() {
-    const idToken = this.getOktaIdToken();
-    const decodedToken = this.getDecodedAccessToken(String(idToken));
-    if (!decodedToken) {
-      console.warn('Token not decoded!');
-      return;
-    }
-    const userName = decodedToken?.name || '';
-    const userEmail = decodedToken?.preferred_username || '';
-    const userId = decodedToken?.sub || '';
-    this.user = {
-      id: userId,
-      name: userName,
-      email: userEmail,
-    };
-    this.userInfo = this.user;
-    localStorage.setItem('userInfo', JSON.stringify(this.user));
+  // setUserInfo() {
+  //   const idToken = this.getOktaIdToken();
+  //   const decodedToken = this.getDecodedAccessToken(String(idToken));
+  //   if (!decodedToken) {
+  //     console.warn('Token not decoded!');
+  //     return;
+  //   }
+  //   const userName = decodedToken?.name || '';
+  //   const userEmail = decodedToken?.preferred_username || '';
+  //   const userId = decodedToken?.sub || '';
+  //   this.user = {
+  //     id: userId,
+  //     name: userName,
+  //     email: userEmail,
+  //   };
+  //   this.userInfo = this.user;
+  //   localStorage.setItem('userInfo', JSON.stringify(this.user));
 
-    // Emit the user info change
-    this.userInfoSubject.next(this.user);
-  }
+
+  //   // Emit the user info change
+  //   this.userInfoSubject.next(this.user);
+  // }
 
   clearSession() {
     this.browserStorageService.LS_clear();
@@ -210,6 +215,10 @@ export class AuthenticationService {
     // Clear user info
     this.userInfo = null;
     this.userInfoSubject.next(null);
+  }
+
+  showMenu(data: boolean) {
+    this.isMenuVisible.next(data);
   }
 
 }

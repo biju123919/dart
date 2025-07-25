@@ -1,0 +1,418 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+
+.header {
+    color: var(--Gray---gray-900, #444);
+    text-align: center;
+
+    /* Heading/H5 Section Heading */
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 3%;
+}
+
+/* 
+.custom-modal-bg {
+  border-radius: 4px;
+  border: 1px solid #7494CA;
+  background: var(--Blue---blue-100, #EAF3FF);
+  box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.25);
+} */
+
+.pagination .page-link {
+    border: none;
+    padding: 0.375rem 0.5rem;
+    /* adjust padding if you want smaller buttons */
+    background: transparent;
+}
+
+.pagination .page-link:hover,
+.pagination .page-link:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.page-link {
+    border: none;
+}
+
+
+.pagination {
+    display: flex;
+    gap: 0.5rem;
+    /* optional spacing between arrows */
+    justify-content: center;
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+
+.pagination .page-link {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0;
+    font-size: 1.5rem;
+    color: #007bff;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pagination .page-link:hover,
+.pagination .page-link:focus {
+    background: transparent !important;
+    color: #0056b3;
+    box-shadow: none !important;
+    outline: none;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    cursor: not-allowed;
+    border: none !important;
+    background-color: red !important;
+}
+
+
+.custom-label {
+    color: var(--Gray---gray-1000, #363636);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.custom-select {
+    color: var(--Gray---gray-1000, #363636);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+
+.custom-label {
+    color: var(--Gray---gray-900, #444);
+
+    /* Body/p body.small-regular */
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+}
+
+.custom-accordion .accordion-header {
+    /* border-top: 1px solid var(--gray-gray-500-m, #B7B7B7);
+  border-right: 1px solid var(--gray-gray-500-m, #B7B7B7);
+  border-left: 1px solid var(--gray-gray-500-m, #B7B7B7); */
+    background: var(--Blue---blue-100, #EAF3FF);
+    border-bottom: 1px solid var(--gray-gray-500-m, #B7B7B7);
+    padding: 0 !important;
+}
+
+.custom-accordion .accordion-flush {
+    border-right: 1px solid var(--gray-gray-500-m, #B7B7B7);
+}
+
+.custom-accordion {
+    width: 100%;
+}
+
+.custom-border {
+    border: 1px solid #B7B7B7 !important;
+}
+
+.accordion-collapse {
+    display: none;
+    overflow: hidden;
+}
+
+.accordion-collapse.show {
+    display: block;
+}
+
+
+
+.custom-accordion .accordion-item {
+    border: 1px solid #ccc;
+    /* default border */
+    border-bottom: none;
+    /* remove bottom border to avoid double borders */
+}
+
+.custom-accordion .accordion-item:last-child {
+    border-bottom: 1px solid #ccc;
+    /* border for last item */
+}
+
+/* Remove border for expanded item */
+.custom-accordion .accordion-item.expanded {
+    border: none;
+}
+
+/* Show border after expanded content */
+.custom-accordion .accordion-collapse .expanded-border {
+    height: 1px;
+    background-color: #B7B7B7;
+    /* background-color: #ccc;
+  margin-top: 10px; */
+}
+
+
+.custom-accordion .accordion-item {
+    border: 1px solid #ccc;
+    border-bottom: none;
+}
+
+.custom-accordion .accordion-item:last-child {
+    border-bottom: 1px solid #ccc;
+}
+
+.custom-accordion .accordion-item.expanded .accordion-header {
+    border-bottom: none;
+}
+
+.custom-accordion .accordion-item.expanded {
+    background-color: #fff !important;
+}
+
+
+
+.modal-content-auto {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+
+.prompt-accordion-header.expanded-header {
+    background-color: #fff;
+    /* Example: light blue */
+    transition: background-color 0.3s ease;
+}
+
+
+.custom-accordion .prompt-accordion-body {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+
+    color: var(--Gray---gray-1000, #363636);
+
+    /* Body/p body.small-regular */
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    /* 142.857% */
+}
+
+
+.btn {
+    border-radius: 4px;
+    background: var(--Blue---blue-900, #2268FD);
+}
+
+.btn-select,
+.btn-close {
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.scroll-outside {
+    overflow-y: auto;
+    padding-right: 1rem;
+    /* space for scrollbar */
+    margin-right: -1rem;
+    /* visually shifts scrollbar outside */
+}
+
+.scroll-area {
+    max-height: 50vh;
+    overflow-y: auto;
+    /* padding-right: 10px; */
+    /* Adds space between content and scrollbar */
+    box-sizing: content-box;
+    /* Ensure padding does not reduce content width */
+}
+
+/* Scrollbar width */
+.scroll-area::-webkit-scrollbar {
+    width: 8px;
+    color: red;
+}
+
+/* Scrollbar thumb */
+.scroll-area::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #7996B8;
+}
+
+/* Scrollbar track (background behind the thumb) */
+.scroll-area::-webkit-scrollbar-track {
+    background: #d0d7e9;
+    /* Change this to your preferred track background color */
+    border-radius: 8px;
+}
+
+.scroll-wrapper {
+    max-height: 50vh;
+    background-color: #d0d7e9;
+    /* The color that fills the gap */
+    border-radius: 4px;
+    /* match your accordion border radius if any */
+}
+
+.scroll-area {
+    height: 100%;
+    overflow-y: auto;
+    /* padding-right: 1px; */
+    /* Space for the gap */
+    box-sizing: content-box;
+}
+
+/* Scrollbar styling */
+.scroll-area::-webkit-scrollbar {
+    width: 2px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #7996B8;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+    /* transparent so wrapper background shows */
+}
+
+
+.scroll-wrapper {
+    max-height: 50vh;
+    background-color: red;
+    border-radius: 4px;
+}
+
+.scroll-area {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 5px;
+    background-color: #EAF3FF !important;
+    box-sizing: content-box;
+}
+
+.scroll-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: #7996B8;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.expand-icon {
+    transition: transform 0.3s ease;
+}
+
+.expand-icon.rotated {
+    transform: rotate(180deg);
+}
+
+.delete-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    /* centers horizontally */
+    align-items: flex-start;
+    /* aligns items to top */
+    padding-top: 5vh;
+    /* adds space from top */
+    z-index: 1200;
+}
+
+.delete-modal {
+    padding: 2rem;
+    max-width: 90vw;
+    width: 30%;
+    border-radius: 4px;
+    border: 1px solid var(--Gray---gray-400, #C9C9C9);
+    background: var(--Blue---blue-100, #EAF3FF);
+    box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* .delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1200;
+}
+
+.delete-modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+} */
+
+.delete-modal-message {
+    color: var(--Gray---gray-1000, #363636);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.delete-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

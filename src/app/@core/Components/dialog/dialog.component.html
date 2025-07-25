@@ -1,0 +1,31 @@
+ <div class="modal fade show d-block modal-bg" tabindex="-1" id="dialogModal">
+      <div class="modal-dialog" [ngClass]="{
+        'modal-dialog-top': data?.position=='top',
+        'modal-dialog-right': data?.position=='right',
+        'modal-dialog-left': data?.position=='left',
+        'modal-dialog-centered': data?.position=='center' || data?.position==undefined,
+        'modal-lg': data?.size=='lg',
+        'modal-md': data?.size=='md' || data?.size==undefined,
+        'modal-sm': data?.size=='sm'
+        }">
+        <div class="modal-content rounded-1 p-3" [ngStyle]="{
+          'width': data?.width ? data.width : '',
+          'height': data?.height ? data.height : ''
+        }">
+          <h5 class="modal-title w-100 text-center modal-title-lg">{{ title }}</h5>
+          <div class="modal-body">
+            <ng-container *ngIf="templateRef && !htmlContent; else componentOrHtmlOutlet">
+              <ng-container *ngTemplateOutlet="templateRef; context: { data: data }"></ng-container>
+            </ng-container>
+            <ng-template #componentOrHtmlOutlet>
+
+              <div *ngIf="htmlContent" 
+                   class="html-content-wrapper" 
+                   [innerHTML]="sanitizedHtmlContent" 
+                   #htmlContainer></div>
+              <ng-container *ngIf="!htmlContent" #vc></ng-container>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>

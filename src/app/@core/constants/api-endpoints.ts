@@ -1,8 +1,7 @@
 export const ApiEndpoints = {
   userAccessProjects: (userId: string | number): string =>
     `genai-project/list/${userId}`,
-  savePrompt: `prompt/create`,
-  updatePrompt: (id: string | number): string => `prompt/${id}`,
+  saveOrUpdatePrompt: `prompt/update`,
   useCaseByProjectId: (projectId: number | string) =>
     `use-case/project/${projectId}`,
   computeConcordance: 'compute-concordance/list',

@@ -1,9 +1,16 @@
 <div class="loader-container" *ngIf="loader$ | async">
-  <div class="spinner"></div>
-  <div>
-    <span class="loader-text-overlay">Loading Data Dashboard</span>
-    <span class="dots-loader">
-      <span></span><span></span><span></span>
-    </span>
-  </div>
+    <div class="acr-spinner">
+      <div class="spinner-inner">
+        <div class="acr-text">
+          <span class="acr-white">ACR</span><span class="acr-green">dart</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span class="loader-text-overlay">Loading Dart Dashboard</span>
+      <span class="dots-loader">
+        <span></span><span></span><span></span>
+      </span>
+    </div>
 </div>

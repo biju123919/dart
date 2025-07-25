@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CommonDropdownComponent } from './components/common-dropdown/common-dropdown.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { CommonTextareaComponent } from './components/common-textarea/common-textarea.component';
 import { FormsModule, ControlValueAccessor, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,10 +14,11 @@ import { CommonConfirmationModalComponent } from './components/common-confirmati
 import { CommonSuccessModalComponent } from './components/common-success-modal/common-success-modal.component';
 import { SaveModalComponent } from './components/save-modal/save-modal.component';
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { UiCoreModule } from '../ui-core.module';
 
 @NgModule({
   declarations: [
-    CommonDropdownComponent,
+    DropdownComponent,
     CommonTextareaComponent,
     CommonRangeSliderComponent,
     SaveModalComponent,
@@ -39,9 +40,10 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
     MatDividerModule,
     MatSliderModule,
     ReactiveFormsModule,
+    UiCoreModule
   ],
   exports: [
-    CommonDropdownComponent,
+    DropdownComponent,
     CommonTextareaComponent,
     CommonRangeSliderComponent,
     CommonPaginatorComponent,

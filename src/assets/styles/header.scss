@@ -1,0 +1,76 @@
+@use 'definitions';
+
+.header-bg {
+    background-color: var(--header-bg-color);
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    // padding: 3px 36px; 
+}
+
+.header-logo {
+    width: 241px;
+    height: 48px;
+    margin-right: 1.5rem;
+}
+
+.header-border-bottom {
+    border-bottom: 2px solid var(--header-bottom-color);
+}
+
+.login-signup-button {
+    border-radius: 20px;
+    border-color: var(--signup-text-clr) !important;
+    color: var(--signup-text-clr);
+    border: 2px solid;
+    padding: 6px 16px;
+    cursor: pointer;
+    height: 36px;
+}
+
+.login-btn {
+    background-color: var(--signup-text-clr) !important;
+    color: var(--login-text-clr) !important;
+}
+
+.login-signup-button:hover {
+    border-color: var(--hover-text-clr) !important;
+    color: var(--hover-text-clr);
+}
+
+.login-btn:hover {
+    background-color: var(--hover-text-clr) !important;
+    // color: var(--login-text-clr);
+}
+
+.user-container {
+    position: relative;
+    cursor: pointer;
+    color: var(--sidemenu-text-clr);
+
+    &:hover {
+        color: var(--white-clr);
+    }
+
+
+    .profile-dropdown {
+        position: absolute;
+        right: 0;
+        background-color: var(--profile-dropdown-bg-clr);
+        width: 200px;
+
+        .dropdown-item {
+            padding: 12px 15px;
+            color: var(--sidemenu-text-clr);
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--profile-dropdown-hover-bg-clr);
+                color: var(--white-clr);
+            }
+        }
+    }
+
+}
