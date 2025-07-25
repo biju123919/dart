@@ -14,6 +14,7 @@ import { take, Subscription } from 'rxjs';
 import { UserManageService } from '../../@core/service/user-manage.service';
 import { AuthenticationService } from '../../@core/service/authentication.service';
 import { SvgIcon } from '../../@core/enums/svg-icon';
+import { MenuItem } from 'src/app/@core/model/menu-item';
 
 @Component({
   selector: 'app-header',
@@ -130,7 +131,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  sideMenus = ['Welcome', 'All Projects', 'Generative AI'];
+  menuItems: MenuItem[] = [
+    { label: 'Welcome', route: '/' },
+    { label: 'Reports', route: '/reports' },
+    { label: 'Settings', route: '/settings'}
+  ];
 
   onLogOutClick() {
     localStorage.setItem('logoutEvent', 'true');
@@ -168,16 +173,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loadUserData();
   }
 
- onMenuClick(item: string): void {
-  console.log('Clicked menu:', item);
-  if(item.toLocaleLowerCase() == 'welcome')
-  {
-  this.router.navigate(['/welcome']);
-  }
-  if(item.toLocaleLowerCase() == 'generative ai')
-  {
-  this.router.navigate(['/dashboard']);
-  }
+ onMenuClick(item: MenuItem): void {
+  this.router.navigate([item.route]);
   this.isSidebarOpen = !this.isSidebarOpen;
  }
 }
